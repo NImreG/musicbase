@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Base</title>
+    <meta name="author" content="Nagy Imre">
+    <meta name="keywords" content="zene, zenezug, 4 kedvenc zene">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.js">
+    <link rel="stylesheet" href="css/music-base.css">
+</head>
+
+<body>
+    <div class="row fo btn-container">
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/awaken.jpg" alt="">
+                        <figcaption class="normal">Awaken-Creo</figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player1">
+                <audio id="audio1" src="music/Creo-Awaken.mp3" loop></audio>
+
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="1"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="1"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/dimensions.jpg" alt="">
+                        <figcaption class="normal">Dimensions-Creo</figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player2">
+                <audio id="audio2" src="music/Creo-Dimension.mp3" loop></audio>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="2"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="2"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/sphere.jpg" alt="">
+                        <figcaption class="normal">Sphere-Creo</figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player3">
+                <audio id="audio3" src="music/Creo-Sphere.mp3" loop></audio>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="3"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="3"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/sunset-city.jpg" alt="">
+                        <figcaption class="normal">Sunset city<span>-CVLTVRΣ</span></figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player4">
+                <audio id="audio4" src="music/CVLTVRE-(Sunset-City).mp3" loop></audio>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="4"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="4"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/creo-slow-down.jpg" alt="">
+                        <figcaption class="normal">Slow down-Creo</figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player5">
+                <audio id="audio5" src="music/Creo-Slow_Down.mp3" loop></audio>
+
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="5"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="5"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/new-horizons.jpg" alt="">
+                        <figcaption class="normal">New horizons<span>-Protostar</span></figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player6">
+                <audio id="audio6" src="music/Protostar-New_Horizons_Monstercat_Release.mp3" loop></audio>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="6"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="6"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/galaxies.jpg" alt="">
+                        <figcaption class="normal">Galaxies<span>-Protostar</span></figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player7">
+                <audio id="audio7" src="music/Protostar-Galaxies_Monstercat_Release.mp3" loop></audio>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="7"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="7"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/nocturne.jpg" alt="">
+                        <figcaption class="normal">Nocturne<span class="spanspec">op.2 vol.9</span>-Chopin</figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player8">
+                <audio id="audio8" src="music/Chopin-Nocturne_op.9_No.2.mp3" loop></audio>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="8"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="8"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/undertale-yellow.jpg" alt="">
+                        <figcaption class="normal">Meltdown<span class="span2 spanspec">-MasterSwordRemix</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player9">
+                <audio id="audio9" src="music/Undertale_Yellow_OST_077-Meltdown.mp3" loop></audio>
+
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="9"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="9"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/cheat-codes.jpg" alt="">
+                        <figcaption class="normal">Cheat codes<span>-Nitro Fun</span></figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player10">
+                <audio id="audio10" src="music/Nitro_Fun-Cheat_Codes_Monstercat_Release.mp3" loop></audio>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="10"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="10"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/raveyard.jpg" alt="">
+                        <figcaption class="normal">Future Dumpster<span> Diver</span><span
+                                class="span2">-NoLongerNull</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player11">
+                <audio id="audio11" src="music/Future_Dumpster_Diver.mp3" loop></audio>
+
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="11"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="11"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/searchlight.jpg" alt="">
+                        <figcaption class="normal">Eyes in the skies<span class="span2">-NoLongerNull</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player12">
+                <audio id="audio12" src="music/Eyes_In_The_Skies_PRESSURE_GAME_OST.mp3" loop></audio>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="12"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="12"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row fo btn-container">
+        <div class="col-12 container-fluid" id="szoveg">
+            Terraria Calamity mod full soundtrack: Servants and the Devourer of Gods
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="row hatter2">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/servants.jpg" alt="">
+                        <figcaption class="devourer">Servants of the s<span>courge</span><span class="span2">-DM
+                                DOKURO</span></figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player13">
+                <audio id="audio13" src="music/servants_of_the_scourge.mp3"></audio>
+
+                <div class="col-6 container-fluid gomb2">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="13"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb2">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="13"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="row hatter2">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/scourge_of_the_universe.jpg" alt="">
+                        <figcaption class="devourer">Scourge of the u<span>niverse</span> 1<span class="span2">-DM
+                                DOKURO</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player14">
+                <audio id="audio14" src="music/scourge_of_the_universe.mp3"></audio>
+                <div class="col-6 container-fluid gomb2">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="14"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb2">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="14"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="row hatter2">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/scourge_of_the_universe2.jpg" alt="">
+                        <figcaption class="devourer">Scourge of the u<span>niverse</span> 2<span class="span2">-DM
+                                DOKURO</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player15">
+                <audio id="audio15" src="music/calm_before_storm.mp3"></audio>
+
+                <div class="col-6 container-fluid gomb2">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="15"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb2">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="15"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="row hatter2">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/universal_collapse.jpg" alt="">
+                        <figcaption class="devourer">Universal collapse<span class="span2">-DM DOKURO</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player16">
+                <audio id="audio16" src="music/universal_collapse.mp3"></audio>
+                <div class="col-6 container-fluid gomb2">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="16"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb2">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="16"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row fo btn-container">
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/cybersworld.jpg" alt="">
+                        <figcaption class="normal">A CYBER'S WORLD?<span>-Toby Fox</span></figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player17">
+                <audio id="audio17" src="music/Deltarune_Chapter_2_OST_06_-_A_CYBER'S_WORLD_.mp3" loop></audio>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="17"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="17"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/hexagonforce.jpg" alt="">
+                        <figcaption>Hexagon Force<span>-Waterflame</span></figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player18">
+                <audio id="audio18" src="music/Hexagonforce.mp3" loop></audio>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="18"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="18"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/victory.jpg" alt="">
+                        <figcaption class="normal">Victory<span>-Two Steps From Hell</span></figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player19">
+                <audio id="audio19" src="music/Two_Steps_From_Hell_-_Victory.mp3" loop></audio>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="19"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="19"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/catgroove.jpg" alt="">
+                        <figcaption>Catgroove<span>-Parov Stelar</span></figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player20">
+                <audio id="audio20" src="music/Parov_Stelar_-_Catgroove.mp3" loop></audio>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="20"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="20"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/Undyne.jpg" alt="">
+                        <figcaption class="normal"><span>Battle Against a </span>True Hero<span class="span2">-Toby
+                                Fox</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player21">
+                <audio id="audio21" src="music/Undertale_Ost-Battle_Against_a_True_Hero.mp3" loop></audio>
+
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="21"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="21"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/hotland.jpg" alt="">
+                        <figcaption class="normal">Another Medium<span>-Toby Fox</span></figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player22">
+                <audio id="audio22" src="music/Another_Medium.mp3" loop></audio>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="22"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="22"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/core.jpg" alt="">
+                        <figcaption class="normal">CORE-Toby Fox</figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player23">
+                <audio id="audio23" src="music/CORE.mp3" loop></audio>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="23"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="23"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/field.jpg" alt="">
+                        <figcaption class="normal"><span>Field of </span>Hopes and Dreams<span class="span2">-Toby
+                                Fox</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player24">
+                <audio id="audio24" src="music/Field_of_Hopes_and_Dreams.mp3" loop></audio>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="24"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="24"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/Black_snow.jpg" alt="">
+                        <figcaption class="normal"><span>Dark/trance </span>Black Snow<span class="span2">-KgZ</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player25">
+                <audio id="audio25" src="music/KgZ-_Dark_Trance_Black_Snow_(Violin_Arrangement).mp3" loop></audio>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="25"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="25"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/easter_egg.jpg" alt="">
+                        <figcaption class="normal">Easter Egg<span class="span2">-Nitro Fun</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player26">
+                <audio id="audio26" src="music/Nitro_Fun_-_Easter_Egg_(2014)_[Monstercat_Release].mp3" loop></audio>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="26"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="26"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/pathfinder.jpg" alt="">
+                        <figcaption class="normal">Pathfinder<span>-Kubbi</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player27">
+                <audio id="audio27" src="music/Kubbi_Pathfinder.mp3" loop></audio>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="27"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="27"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-ultra-2 col-lg-3 col-md-6">
+            <div class="row hatter">
+                <div class="col-12 kep">
+                    <figure>
+                        <img class="img-fluid" src="images/great_strategy.jpg" alt="">
+                        <figcaption class="normal">The Great Strategy<span>-Roblox</span>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="row hatter" id="player28">
+                <audio id="audio28" src="music/The_Great_Strategy.mp3" loop></audio>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn play-btn" data-id="28"
+                            type="button">Lejátszás</button>
+                    </div>
+                </div>
+                <div class="col-6 container-fluid gomb">
+                    <div class="col-12">
+                        <button class="container-fluid control-btn pause-btn" data-id="28"
+                            type="button">Megállítás</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="kitolto">
+        <div class="col-12">
+            <div class="row" id="boxContainer">
+                <div class="col-md-1 d-none d-md-block container-fluid oszlop
+                ">
+                    <div class="animationBox " id="oszlop1">
+                    </div>
+                </div>
+                <div class="col-md-1 d-none d-md-block container-fluid oszlop
+                ">
+                    <div class="animationBox " id="oszlop2">
+
+                    </div>
+                </div>
+                <div class="col-md-1 d-none d-md-block container-fluid oszlop
+                ">
+                    <div class="animationBox" id="oszlop3">
+
+                    </div>
+                </div>
+                <div class="col-md-1 d-none d-md-block container-fluid oszlop
+                ">
+                    <div class="animationBox" id="oszlop4">
+
+                    </div>
+                </div>
+                <div class="col-md-1 col-3 container-fluid oszlop
+                ">
+                    <div class="animationBox" id="oszlop5">
+
+                    </div>
+                </div>
+                <div class="col-md-1 col-3 container-fluid oszlop
+                ">
+                    <div class="animationBox" id="oszlop6">
+
+                    </div>
+                </div>
+                <div class="col-md-1 col-3 container-fluid oszlop
+                ">
+                    <div class="animationBox" id="oszlop7">
+
+                    </div>
+                </div>
+                <div class="col-md-1 col-3 container-fluid oszlop
+                ">
+                    <div class="animationBox" id="oszlop8">
+
+                    </div>
+                </div>
+                <div class="col-md-1 d-none d-md-block container-fluid oszlop
+                ">
+                    <div class="animationBox" id="oszlop9">
+
+                    </div>
+                </div>
+                <div class="col-md-1 d-none d-md-block container-fluid oszlop
+                ">
+                    <div class="animationBox" id="oszlop10">
+
+                    </div>
+                </div>
+                <div class="col-md-1 d-none d-md-block container-fluid oszlop
+                ">
+                    <div class="animationBox" id="oszlop11">
+
+                    </div>
+                </div>
+                <div class="col-md-1 d-none d-md-block container-fluid oszlop
+                ">
+                    <div class="animationBox" id="oszlop12">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="music-base.js"></script>
+</body>
+
+</html>

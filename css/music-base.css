@@ -1,0 +1,899 @@
+
+body {
+    padding: 20px;
+    padding-top: 5px;
+    background-color: #060621;
+    user-select: none;
+    pointer-events: none;
+}
+
+body .fo {
+    pointer-events: all;
+}
+
+.btn-container{
+    display: flex;
+}
+
+.gomb div {
+    background-color: gray;
+    border: 2px double darkgrey;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+}
+
+
+
+#szoveg {
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    font-family: Arial;
+    font-variant-caps: small-caps;
+    color: rgb( 255 255 255 / 0.7 );
+    letter-spacing: 3px;
+    background-color: rgb( 34 67 47 / 0.2);
+    border: 4px antiquewhite solid;
+    border-bottom: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.hatter {
+    background: linear-gradient(navy , black);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: navy 2px double;
+}
+
+.hatter2 {
+    background:-webkit-linear-gradient(rgb(44, 39, 40), rgb(0, 78, 78), rgb(36, 0, 62), rgb(34, 0, 34));
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.gomb2 {
+    background:-webkit-linear-gradient(rgb(44, 39, 40), rgb(0, 78, 78), rgb(36, 0, 62), rgb(34, 0, 34));
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+row img {
+    background-color: black;
+}
+
+img {
+    display: block;
+    border-radius: 20px;
+    margin: 10px;
+    margin:auto;
+    border: 3px solid grey;
+}
+
+.gomb {
+    display: block;
+    margin: auto;
+    height: 50%;
+}
+
+button {
+    padding: 20px;
+    margin: auto;
+    display: block;
+    margin: 20px;
+    cursor: pointer;
+    user-select: none;
+}
+
+@media screen and (max-width: 2550px) and (min-width: 1600px) {
+    .normal span {
+        display: none;
+    }
+}
+
+
+@media screen and (max-width: 1760px) and (min-width: 768px) {
+    body {
+        font-size: 75%;
+    }
+    .span2 {
+        display: none;
+    }
+}
+
+
+
+
+@media screen and (max-width: 1600px) and (min-width: 992px) {
+
+    span {
+        display: none;
+    }
+}
+
+
+@media (min-width: 1900px) {
+    .col-ultra-2 {
+      flex: 0 0 16.6667%;
+      max-width: 16.6667%;
+    }
+  }
+
+.play-btn {
+    background-color: rgb(255 255 255 / 0.7);
+}
+
+.control-btn.focus {
+    color: white;
+    font-weight: bold;
+    border: 3px darkred solid;
+    background-color: red;
+    font-variant: small-caps;
+}
+
+.disabled {
+    cursor: not-allowed;
+    background-color: #ccc;
+    pointer-events: none;
+}
+
+.play-btn:active {
+    color: black;
+    font-weight: bold;
+    border: 3px black solid;
+    background-color: white;
+    font-variant: small-caps;
+}
+
+
+figcaption {
+    text-align: center;
+    color: gray;
+    font-weight: bold;
+    font-size: 20px;
+    text-shadow: white 1px 1px 2px;
+    letter-spacing: 1px;
+    user-select: none;
+}
+
+#kitolto {
+    height: 470px;
+    margin: auto;
+    background: linear-gradient(black 15%, grey);
+    width: 100%;
+     border: 15px grey solid;
+     border-bottom: none;
+     border-top: none;
+}
+
+.oszlop {
+    height: 400px;
+    margin-top: 70px;
+}
+
+.animationBox {
+    background: linear-gradient(black , grey );
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    height: 400px;
+
+}
+
+.oszlop1 {
+    animation-name: hangsáv1;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes hangsáv1 {
+    0% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    25% {
+        height: 250px;
+        margin-top: 150px;
+        margin-bottom: 150px;
+    }
+
+    35% {
+        height: 150px;
+        margin-top: 250px;
+        margin-bottom: 250px;
+    }
+
+    50% {
+        height: 300px;
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+
+    75% {
+        height: 75px;
+        margin-top: 325px;
+        margin-bottom: 325px;
+    }
+
+    100% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+}
+
+.oszlop2 {
+    animation-name: hangsáv2;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes hangsáv2 {
+    0% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    15% {
+        height: 50px;
+        margin-top: 350px;
+        margin-bottom: 350px;
+    }
+
+    30% {
+        height: 250px;
+        margin-top: 150px;
+        margin-bottom: 150px;
+    }
+
+    60% {
+        height: 70px;
+        margin-top: 330px;
+        margin-bottom: 330px;
+    }
+
+    75% {
+        height: 280px;
+        margin-top: 120px;
+        margin-bottom: 120px;
+    }
+
+    100% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+}
+
+.oszlop3 {
+    animation-name: hangsáv3;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes hangsáv3 {
+    0% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    25% {
+        height: 40px;
+        margin-top: 360px;
+        margin-bottom: 360px;
+    }
+
+    60% {
+        height: 340px;
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
+
+    70% {
+        height: 280px;
+        margin-top: 120px;
+        margin-bottom: 120px;
+    }
+
+    100% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+}
+
+.oszlop4 {
+    animation-name: hangsáv4;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes hangsáv4 {
+    0% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    25% {
+        height: 140px;
+        margin-top: 260px;
+        margin-bottom: 260px;
+    }
+
+    40% {
+        height: 140px;
+        margin-top: 260px;
+        margin-bottom: 260px;
+    }
+
+    45% {
+        height: 230px;
+        margin-top: 170px;
+        margin-bottom: 170px;
+    }
+
+    50% {
+        height: 330px;
+        margin-top: 70px;
+        margin-bottom: 70px;
+    }
+
+    75% {
+        height: 20px;
+        margin-top: 380px;
+        margin-bottom: 380px;
+    }
+
+    100% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+}
+
+.oszlop5 {
+    animation-name: hangsáv5;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes hangsáv5 {
+    0% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    15% {
+        height: 175px;
+        margin-top: 225px;
+        margin-bottom: 225px;
+    }
+
+    20% {
+        height: 300px;
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+
+    35% {
+        height: 140px;
+        margin-top: 260px;
+        margin-bottom: 260px;
+    }
+
+    50% {
+        height: 40px;
+        margin-top: 360px;
+        margin-bottom: 360px;
+    }
+
+    60% {
+        height: 100px;
+        margin-top: 300px;
+        margin-bottom: 300px;
+    }
+
+    75% {
+        height: 280px;
+        margin-top: 120px;
+        margin-bottom: 120px;
+    }
+
+    85% {
+        height: 180px;
+        margin-top: 220px;
+        margin-bottom: 220px;
+    }
+
+    100% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+}
+
+.oszlop6 {
+    animation-name: hangsáv6;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes hangsáv6 {
+    0% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    15% {
+        height: 40px;
+        margin-top: 360px;
+        margin-bottom: 360px;
+    }
+
+    40% {
+        height: 80px;
+        margin-top: 320px;
+        margin-bottom: 320px;
+    }
+
+    65% {
+        height: 160px;
+        margin-top: 240px;
+        margin-bottom: 240px;
+    }
+
+    70% {
+        height: 200px;
+        margin-top: 200px;
+        margin-bottom: 200px;
+    }
+
+    85% {
+        height: 220px;
+        margin-top: 180px;
+        margin-bottom: 180px;
+    }
+
+    100% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+}
+
+.oszlop7 {
+    animation-name: hangsáv7;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes hangsáv7 {
+    0% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    15% {
+        height: 300px;
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+
+    50% {
+        height: 110px;
+        margin-top: 290px;
+        margin-bottom: 290px;
+    }
+
+    60% {
+        height: 110px;
+        margin-top: 290px;
+        margin-bottom: 290px;
+    }
+
+    80% {
+        height:220px;
+        margin-top: 180px;
+        margin-bottom: 180px;
+    }
+
+    90% {
+        height: 360px;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+    100% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+}
+
+.oszlop8 {
+    animation-name: hangsáv8;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes hangsáv8 {
+    0% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    25% {
+        height: 360px;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+    30% {
+        height: 360px;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+    35% {
+        height: 250px;
+        margin-top: 150px;
+        margin-bottom: 150px;
+    }
+
+    65% {
+        height: 220px;
+        margin-top: 180px;
+        margin-bottom: 180px;
+    }
+
+    80% {
+        height: 120px;
+        margin-top: 280px;
+        margin-top: 280px;
+    }
+
+    85% {
+        height: 25px;
+        margin-top: 375px;
+        margin-bottom: 375px;
+    }
+
+    100% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+}
+
+.oszlop9 {
+    animation-name: hangsáv9;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes hangsáv9 {
+    0% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    20% {
+        height: 100px;
+        margin-top: 300px;
+        margin-bottom: 300px;
+    }
+
+    25% {
+        height: 200px;
+        margin-top: 200px;
+        margin-bottom: 200px;
+    }
+
+    30% {
+        height: 100px;
+        margin-top: 300px;
+        margin-bottom: 300px;
+    }
+
+    50% {
+        height: 200px;
+        margin-top: 200px;
+        margin-bottom: 200px;
+    }
+
+    55% {
+        height: 300px;
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+
+    60% {
+        height: 200px;
+        margin-top: 200px;
+        margin-bottom: 200px;
+    }
+
+    80% {
+        height: 100px;
+        margin-top: 300px;
+        margin-bottom: 300px;
+    }
+
+    85% {
+        height: 200px;
+        margin-top: 200px;
+        margin-bottom: 200px;
+    }
+
+    90% {
+        height: 100px;
+        margin-top: 300px;
+        margin-bottom: 300px;
+    }
+
+    100% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+}
+
+.oszlop10  {
+    animation-name: hangsáv10;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes hangsáv10 {
+    0% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    25% {
+        height: 360px;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+    30% {
+        height: 100px;
+        margin-top: 300px;
+        margin-bottom: 300px;
+    }
+
+    35% {
+        height: 40px;
+        margin-top: 360px;
+        margin-bottom: 360px;
+    }
+
+    50% {
+        height: 280px;
+        margin-top: 120px;
+        margin-bottom: 120px;
+    }
+
+    55% {
+        height: 200px;
+        margin-top: 200px;
+        margin-bottom: 200px;
+    }
+
+    60% {
+        height: 120px;
+        margin-top: 280px;
+        margin-bottom: 280px;
+    }
+
+    70% {
+        height: 350px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    90% {
+        height: 300px;
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+
+    100% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+}
+
+.oszlop11 {
+    animation-name: hangsáv11;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes hangsáv11 {
+    0% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    30% {
+        height: 250px;
+        margin-top: 150px;
+        margin-bottom: 150px;
+    }
+
+    35% {
+        height: 150px;
+        margin-top: 250px;
+        margin-bottom: 250px;
+
+    }
+
+    40% {
+        height: 250px;
+        margin-top: 150px;
+        margin-bottom: 150px;
+    }
+
+    60% {
+        height: 250px;
+        margin-top: 150px;
+        margin-bottom: 150px;
+    }
+
+    65% {
+        height: 100px;
+        margin-top: 300px;
+        margin-bottom: 300px;
+    }
+
+    70% {
+        height: 250px;
+        margin-top: 150px;
+        margin-bottom: 150px;
+    }
+
+    90% {
+        height: 250px;
+        margin-top: 150px;
+        margin-bottom: 150px;
+    }
+
+    100% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+}
+
+.oszlop12 {
+    animation-name: hangsáv12;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes hangsáv12 {
+    0% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    5% {
+        height: 200px;
+        margin-top: 200px;
+        margin-bottom: 200px;
+    }
+
+    10% {
+        height: 100px;
+        margin-top: 300px;
+        margin-bottom: 300px;
+    }
+
+    15% {
+        height: 50px;
+        margin-top: 350px;
+        margin-bottom: 350px;
+    }
+
+    20% {
+        height: 25px;
+        margin-top: 375px;
+        margin-bottom: 375px;
+    }
+
+    30% {
+        height: 220px;
+        margin-top: 180px;
+        margin-bottom: 180px;
+    }
+
+    35% {
+        height: 110px;
+        margin-top: 290px;
+        margin-bottom: 290px;
+    }
+
+    40% {
+        height: 55px;
+        margin-top: 345px;
+        margin-bottom: 345px;
+    }
+
+    50% {
+        height: 240px;
+        margin-top: 160px;
+        margin-bottom: 160px; 
+    }
+
+    55% {
+        height: 120px;
+        margin-top: 280px;
+        margin-bottom: 280px;
+    }
+
+    60% {
+        height: 60px;
+        margin-top: 340px;
+        margin-bottom: 340px;
+    }
+
+    65% {
+        height: 30px;
+        margin-top: 370px;
+        margin-bottom: 370px;
+    }
+
+    70% {
+        height: 15px;
+        margin-top: 385px;
+        margin-bottom: 385px;
+    }
+
+    80% {
+        height: 150px;
+        margin-top: 250px;
+        margin-bottom: 250px;
+    }
+
+    90% {
+        height: 300px;
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+
+    100% {
+        height: 400px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+}
+
