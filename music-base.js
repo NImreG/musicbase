@@ -119,8 +119,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const audio = document.getElementById(`audio${id}`);
             if (!audio) return;
 
+            // If the audio is already playing, do nothing
             if (activeAudio === audio && !audio.paused) return;
 
+            // Stop all other audios
             audios.forEach(a => {
                 if (a !== audio) {
                     a.pause();
@@ -128,13 +130,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
 
+            // Disable all pause buttons
             disableAllPauseButtons();
 
+            // Play the clicked audio
             audio.play();
             enablePauseButton(id);
             activeAudio = audio;
 
-            updatePlayButton();
+            // Update focus for the corresponding play button
+            deactivateAllPlayButtons();
+            button.classList.add('focus');
         });
     });
 
@@ -146,10 +152,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const id = button.getAttribute('data-id');
             const audio = document.getElementById(`audio${id}`);
 
+            // Pause the audio
             audio.pause();
             button.classList.add('disabled');
 
-            updatePlayButton();
+            // Remove focus from the play button
+            deactivateAllPlayButtons();
+
+            // Clear active audio
             activeAudio = null;
         });
     });
