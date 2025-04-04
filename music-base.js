@@ -160,9 +160,10 @@ document.addEventListener('DOMContentLoaded', function () {
             stopAnimations();
     
             // Reset all focus states
-            deactivateAllButtons(); // remove focus from all control buttons
             disableAllPauseButtons(); // disable and remove focus from all pause buttons
-    
+            deactivateAllButtons(); // remove focus from all control buttons
+            pauseButtons.forEach(btn => btn.classList.remove('focus'));
+            
             // Play selected audio
             audio.play();
             activeAudio = audio;
