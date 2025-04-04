@@ -137,6 +137,7 @@ button {
     cursor: not-allowed;
     background-color: #ccc;
     pointer-events: none;
+    user-select: none;
 }
 
 .play-btn:active {
