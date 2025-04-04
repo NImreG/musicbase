@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
-    alert("Üdvözlet a weboldalamon. Ez a weboldal Nagy Imre által készült, és folyamatosan fejlesztés alatt áll. Élvezd azokat a zenéket, amiket sikerült idáig összegyűjtenem."); // Alert on first load
-
     const playButtons = document.querySelectorAll('.play-btn');
     const pauseButtons = document.querySelectorAll('.pause-btn');
     const audios = document.querySelectorAll('audio');
-    const boxes = document.querySelectorAll('.animationBox'); // Animation elements
-    const buttons = document.querySelectorAll('.control-btn'); // Combined play/pause buttons
-    let activeAudio = null; // Track the currently playing audio
+    const boxes = document.querySelectorAll('.animationBox');
+    const buttons = document.querySelectorAll('.control-btn');
+    let activeAudio = null;
+
+    const nonPlaylistIds = [34, 35, 36, 37]; // All non-playlist track IDs
 
     // Helper Functions
     function disableAllPauseButtons() {
@@ -25,14 +25,14 @@ document.addEventListener('DOMContentLoaded', function () {
     function startAnimations() {
         boxes.forEach((box, index) => {
             const id = `oszlop${index + 1}`;
-            box.classList.add(id); // Add animation class to each box
+            box.classList.add(id); 
         });
     }
 
     function stopAnimations() {
         boxes.forEach((box, index) => {
             const id = `oszlop${index + 1}`;
-            box.classList.remove(id); // Remove animation class from each box
+            box.classList.remove(id); 
         });
     }
 
@@ -61,11 +61,66 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Enable pause button and set focus to play button
         pauseButton.classList.remove('disabled');
-        pauseButton.classList.remove('focus');  // Don't focus pause button
-        playButton.classList.add('focus');      // Focus play button
+        pauseButton.classList.remove('focus');  
+        playButton.classList.add('focus');      
 
         // Start animations
         startAnimations();
+    }
+
+    // Handle media session actions
+    if ('MediaSession' in navigator) {
+        navigator.mediaSession.setActionHandler('play', function() {
+            if (activeAudio) {
+                activeAudio.play();
+                const playButton = document.querySelector(`.play-btn[data-id="${activeAudio.id.replace('audio', '')}"]`);
+                playButton.classList.add('focus');
+            }
+        });
+
+        navigator.mediaSession.setActionHandler('pause', function() {
+            if (activeAudio) {
+                activeAudio.pause();
+                const pauseButton = document.querySelector(`.pause-btn[data-id="${activeAudio.id.replace('audio', '')}"]`);
+                pauseButton.classList.add('focus');
+            }
+        });
+
+        navigator.mediaSession.setActionHandler('nexttrack', function() {
+            const currentId = parseInt(activeAudio?.id.replace('audio', '')) || 0;
+            let index = nonPlaylistIds.indexOf(currentId);
+            index = (index + 1) % nonPlaylistIds.length;
+            const nextId = nonPlaylistIds[index];
+
+            activateTrack(nextId);
+
+            // Focus logic based on whether the audio is playing or paused
+            if (activeAudio.paused) {
+                const pauseButton = document.querySelector(`.pause-btn[data-id="${nextId}"]`);
+                pauseButton?.classList.add('focus'); // Focus on the pause button if audio is paused
+            } else {
+                const playButton = document.querySelector(`.play-btn[data-id="${nextId}"]`);
+                playButton?.classList.add('focus'); // Focus on the play button if audio is playing
+            }
+        });
+
+        navigator.mediaSession.setActionHandler('previoustrack', function() {
+            const currentId = parseInt(activeAudio?.id.replace('audio', '')) || 0;
+            let index = nonPlaylistIds.indexOf(currentId);
+            index = (index - 1 + nonPlaylistIds.length) % nonPlaylistIds.length;
+            const prevId = nonPlaylistIds[index];
+
+            activateTrack(prevId);
+
+            // Focus logic based on whether the audio is playing or paused
+            if (activeAudio.paused) {
+                const pauseButton = document.querySelector(`.pause-btn[data-id="${prevId}"]`);
+                pauseButton?.classList.add('focus'); // Focus on the pause button if audio is paused
+            } else {
+                const playButton = document.querySelector(`.play-btn[data-id="${prevId}"]`);
+                playButton?.classList.add('focus'); // Focus on the play button if audio is playing
+            }
+        });
     }
 
     // Play Button Logic
@@ -128,39 +183,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Clear active audio
             activeAudio = null;
-        });
-    });
-
-    // Skip Forward and Skip Backward Logic
-    document.querySelector('#skip-forward').addEventListener('click', () => {
-        const currentId = parseInt(activeAudio?.id.replace('audio', '')) || 0;
-        const allIds = [13, 14, 15, 16]; // 🔁 All non-playlist track IDs
-        let index = allIds.indexOf(currentId);
-        index = (index + 1) % allIds.length;
-        const nextId = allIds[index];
-
-        activateTrack(nextId);
-    });
-
-    document.querySelector('#skip-backward').addEventListener('click', () => {
-        const currentId = parseInt(activeAudio?.id.replace('audio', '')) || 0;
-        const allIds = [13, 14, 15, 16]; // 🔁 All non-playlist track IDs
-        let index = allIds.indexOf(currentId);
-        index = (index - 1 + allIds.length) % allIds.length;
-        const prevId = allIds[index];
-
-        activateTrack(prevId);
-    });
-
-    // Sequence Playback Logic (if you have a sequence of tracks)
-    audios.forEach(audio => {
-        audio.addEventListener('ended', () => {
-            const currentId = audio.id.replace('audio', '');
-            const sequenceIds = [13, 14, 15, 16]; // Define sequence of IDs
-            if (sequenceIds.includes(parseInt(currentId))) {
-                const nextIndex = (sequenceIds.indexOf(parseInt(currentId)) + 1) % sequenceIds.length;
-                activateTrack(sequenceIds[nextIndex]);
-            }
         });
     });
 });
