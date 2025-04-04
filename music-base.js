@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
         // Play button logic
-            playButtons.forEach(button => {
+                playButtons.forEach(button => {
         button.addEventListener('click', () => {
             const id = button.getAttribute('data-id');
             const audio = document.getElementById(`audio${id}`);
@@ -158,24 +158,23 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     
             stopAnimations();
+            disableAllPauseButtons();
     
-            // Reset all focus states
-            disableAllPauseButtons(); // disable and remove focus from all pause buttons
-            deactivateAllButtons(); // remove focus from all control buttons
-            pauseButtons.forEach(btn => btn.classList.remove('focus'));
-            
-            // Play selected audio
+            // Remove focus from all play and pause buttons
+            deactivateAllButtons(); 
+            pauseButtons.forEach(btn => btn.classList.remove('focus')); // Remove focus from all pause buttons
+    
+            // Play the selected audio
             audio.play();
             activeAudio = audio;
     
-            // Add focus to this play button
+            // Set focus on the play button
             button.classList.add('focus');
     
-            // Enable and focus the related pause button
+            // Enable the pause button (but don't give it focus yet)
             const pauseButton = document.querySelector(`.pause-btn[data-id="${id}"]`);
             if (pauseButton) {
                 pauseButton.classList.remove('disabled');
-                pauseButton.classList.add('focus');
             }
     
             updateMediaSession(id);
@@ -183,20 +182,21 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
     // Pause button logic
-    pauseButtons.forEach(button => {
+        pauseButtons.forEach(button => {
         button.addEventListener('click', () => {
             if (button.classList.contains('disabled')) return;
-
+    
             const id = button.getAttribute('data-id');
             const audio = document.getElementById(`audio${id}`);
             if (!audio) return;
-
+    
             audio.pause();
             button.classList.add('disabled');
-
+    
+            // Remove focus from all play and pause buttons
             deactivateAllButtons();
-            button.classList.add('focus');
-
+            button.classList.add('focus'); // Set focus on the pause button
+    
             stopAnimations();
             activeAudio = null;
         });
