@@ -136,6 +136,7 @@ button {
 .disabled {
     cursor: not-allowed;
     background-color: #ccc;
+    pointer-events: none;
 }
 
 .play-btn:active {
