@@ -1,4 +1,4 @@
-ocument.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     alert("Üdvözlet a weboldalamon. Ez a weboldal Nagy Imre által készült, és folyamatosan fejlesztés alatt áll. Élvezd azokat a zenéket, amiket sikerült idáig összegyűjtenem.");
 
     const playButtons = document.querySelectorAll('.play-btn');
@@ -69,13 +69,21 @@ ocument.addEventListener('DOMContentLoaded', function () {
         const currentIndex = Array.from(audios).findIndex(audio => audio.id === `audio${currentId}`);
         let nextIndex = currentIndex + 1;
 
-        // Loop to the first non-playlisted track
+        // Loop through all audio elements to find the next valid audio outside the playlist
         while (nextIndex < audios.length) {
             const nextAudio = audios[nextIndex];
             if (!sequenceIds.includes(parseInt(nextAudio.id.replace('audio', '')))) {
                 return nextAudio;
             }
             nextIndex++;
+        }
+
+        // If no next audio is found, loop back to the first non-playlisted track
+        for (let i = 0; i < audios.length; i++) {
+            const nextAudio = audios[i];
+            if (!sequenceIds.includes(parseInt(nextAudio.id.replace('audio', '')))) {
+                return nextAudio;
+            }
         }
         return null; // If no next audio found outside playlist
     }
@@ -85,13 +93,21 @@ ocument.addEventListener('DOMContentLoaded', function () {
         const currentIndex = Array.from(audios).findIndex(audio => audio.id === `audio${currentId}`);
         let prevIndex = currentIndex - 1;
 
-        // Loop to the last non-playlisted track
+        // Loop through all audio elements to find the previous valid audio outside the playlist
         while (prevIndex >= 0) {
             const prevAudio = audios[prevIndex];
             if (!sequenceIds.includes(parseInt(prevAudio.id.replace('audio', '')))) {
                 return prevAudio;
             }
             prevIndex--;
+        }
+
+        // If no previous audio is found, loop back to the last non-playlisted track
+        for (let i = audios.length - 1; i >= 0; i--) {
+            const prevAudio = audios[i];
+            if (!sequenceIds.includes(parseInt(prevAudio.id.replace('audio', '')))) {
+                return prevAudio;
+            }
         }
         return null; // If no previous audio found outside playlist
     }
