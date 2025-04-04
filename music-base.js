@@ -3,9 +3,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const playButtons = document.querySelectorAll('.play-btn');
     const pauseButtons = document.querySelectorAll('.pause-btn');
+    const skipForwardButtons = document.querySelectorAll('.skip-forward');
     const audios = document.querySelectorAll('audio');
-    const boxes = document.querySelectorAll('.animationBox');
-    const buttons = document.querySelectorAll('.control-btn');
     let activeAudio = null;
     const sequenceIds = [13, 14, 15, 16]; // Sequence of track IDs
 
@@ -62,20 +61,6 @@ document.addEventListener('DOMContentLoaded', function () {
         playButtons.forEach(button => button.classList.remove('focus'));
     }
 
-    function startAnimations() {
-        boxes.forEach((box, index) => {
-            const id = `oszlop${index + 1}`;
-            box.classList.add(id);
-        });
-    }
-
-    function stopAnimations() {
-        boxes.forEach((box, index) => {
-            const id = `oszlop${index + 1}`;
-            box.classList.remove(id);
-        });
-    }
-
     function playNextAudio(currentId) {
         const currentIndex = sequenceIds.indexOf(parseInt(currentId));
         const nextIndex = (currentIndex + 1) % sequenceIds.length;
@@ -89,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
         currentAudio.currentTime = 0;
 
         disableAllPauseButtons();
-        stopAnimations();
 
         nextAudio.play();
         enablePauseButton(nextId);
@@ -99,7 +83,6 @@ document.addEventListener('DOMContentLoaded', function () {
         nextPlayButton?.classList.add('focus');
 
         activeAudio = nextAudio;
-        startAnimations();
     }
 
     function playPreviousAudio(currentId) {
@@ -115,7 +98,6 @@ document.addEventListener('DOMContentLoaded', function () {
         currentAudio.currentTime = 0;
 
         disableAllPauseButtons();
-        stopAnimations();
 
         previousAudio.play();
         enablePauseButton(previousId);
@@ -125,7 +107,6 @@ document.addEventListener('DOMContentLoaded', function () {
         previousPlayButton?.classList.add('focus');
 
         activeAudio = previousAudio;
-        startAnimations();
     }
 
     function updatePlayButton() {
@@ -154,13 +135,11 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             disableAllPauseButtons();
-            stopAnimations();
 
             audio.play();
             enablePauseButton(id);
             activeAudio = audio;
 
-            startAnimations();
             updatePlayButton();
         });
     });
@@ -175,26 +154,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
             audio.pause();
             button.classList.add('disabled');
-            stopAnimations();
 
-            buttons.forEach(btn => btn.classList.remove('focus'));
-            button.classList.add('focus');
-
+            updatePlayButton();
             activeAudio = null;
         });
     });
 
-    // Sequence Playback Logic
-    audios.forEach(audio => {
-        audio.addEventListener('ended', () => {
-            const currentId = audio.id.replace('audio', '');
-            if (sequenceIds.includes(parseInt(currentId))) {
+    // Skip Forward Logic
+    skipForwardButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (activeAudio) {
+                const currentId = activeAudio.id.replace('audio', '');
                 playNextAudio(currentId);
             }
         });
     });
 
-    // Skip Backward and Forward Controls
+    // Skip Backward Logic
     document.querySelector('.skip-backward').addEventListener('click', () => {
         if (activeAudio) {
             const currentId = activeAudio.id.replace('audio', '');
@@ -202,10 +178,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    document.querySelector('.skip-forward').addEventListener('click', () => {
+    // Hide Media Session Control (stop music and hide notification)
+    document.querySelector('.hide-control').addEventListener('click', () => {
         if (activeAudio) {
-            const currentId = activeAudio.id.replace('audio', '');
-            playNextAudio(currentId);
+            activeAudio.pause();
+            activeAudio.currentTime = 0;
+            activeAudio = null;
+            navigator.mediaSession.metadata = null; // Clear metadata and hide controls
         }
     });
 });
