@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const boxes = document.querySelectorAll('.animationBox'); // Animation elements
     const buttons = document.querySelectorAll('.control-btn'); // Combined play/pause buttons
     let activeAudio = null; // Track the currently playing audio
-    const sequenceIds = [13, 14, 15, 16]; // IDs for the sequence (you can adjust this as needed)
+    const sequenceIds = [13, 14, 15, 16]; // Playlist sequence (song IDs)
 
     // Helper Functions
     function disableAllPauseButtons() {
@@ -16,7 +16,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function enablePauseButton(id) {
         const pauseButton = document.querySelector(`.pause-btn[data-id="${id}"]`);
-        pauseButton?.classList.remove('disabled');
+        if (pauseButton) {
+            pauseButton.classList.remove('disabled');
+        }
     }
 
     function deactivateAllPlayButtons() {
@@ -190,5 +192,4 @@ document.addEventListener('DOMContentLoaded', function () {
             playNextAudio(currentId); // Play the next audio
         }
     });
-
 });
