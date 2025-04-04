@@ -176,7 +176,8 @@ document.addEventListener('DOMContentLoaded', function () {
             // Disable the corresponding pause button (no focus or activation)
             const pauseButton = document.querySelector(`.pause-btn[data-id="${id}"]`);
             if (pauseButton) {
-                pauseButton.classList.add('disabled'); // Keep it disabled
+                 pauseButton.classList.remove('disabled'); 
+                 pauseButton.classList.remove('focus');
             }
     
             updateMediaSession(id);
