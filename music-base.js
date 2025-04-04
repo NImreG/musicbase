@@ -1,25 +1,21 @@
 document.addEventListener('DOMContentLoaded', function () {
-    alert("Üdvözlet a weboldalamon. Ez a weboldal Nagy Imre által készült, és folyamatosan fejlesztés alatt áll. Élvezd azokat a zenéket, amiket sikerült idáig összegyűjtenem.");
+    alert("Üdvözlet a weboldalamon. Ez a weboldal Nagy Imre által készült, és folyamatosan fejlesztés alatt áll. Élvezd azokat a zenéket, amiket sikerült idáig összegyűjtenem."); // Alert on first load
 
     const playButtons = document.querySelectorAll('.play-btn');
     const pauseButtons = document.querySelectorAll('.pause-btn');
     const audios = document.querySelectorAll('audio');
-    const boxes = document.querySelectorAll('.animationBox');
-    const buttons = document.querySelectorAll('.control-btn');
-    let activeAudio = null;
+    const boxes = document.querySelectorAll('.animationBox'); // Animation elements
+    const buttons = document.querySelectorAll('.control-btn'); // Combined play/pause buttons
+    let activeAudio = null; // Track the currently playing audio
 
-    const sequenceIds = [13, 14, 15, 16];
-
+    // Helper Functions
     function disableAllPauseButtons() {
         pauseButtons.forEach(button => button.classList.add('disabled'));
     }
 
     function enablePauseButton(id) {
         const pauseButton = document.querySelector(`.pause-btn[data-id="${id}"]`);
-        if (pauseButton) {
-            pauseButton.classList.remove('disabled');
-            pauseButton.classList.add('focus'); // Add focus to active pause button
-        }
+        pauseButton?.classList.remove('disabled');
     }
 
     function deactivateAllButtons() {
@@ -29,212 +25,142 @@ document.addEventListener('DOMContentLoaded', function () {
     function startAnimations() {
         boxes.forEach((box, index) => {
             const id = `oszlop${index + 1}`;
-            box.classList.add(id);
+            box.classList.add(id); // Add animation class to each box
         });
     }
 
     function stopAnimations() {
         boxes.forEach((box, index) => {
             const id = `oszlop${index + 1}`;
-            box.classList.remove(id);
+            box.classList.remove(id); // Remove animation class from each box
         });
     }
 
-    function findNextAudio(currentId) {
-        const currentIndex = Array.from(audios).findIndex(audio => audio.id === `audio${currentId}`);
-        let nextIndex = currentIndex + 1;
-
-        while (nextIndex < audios.length) {
-            const nextAudio = audios[nextIndex];
-            if (!sequenceIds.includes(parseInt(nextAudio.id.replace('audio', '')))) {
-                return nextAudio;
-            }
-            nextIndex++;
-        }
-
-        for (let i = 0; i < audios.length; i++) {
-            const nextAudio = audios[i];
-            if (!sequenceIds.includes(parseInt(nextAudio.id.replace('audio', '')))) {
-                return nextAudio;
-            }
-        }
-
-        return null;
-    }
-
-    function findPreviousAudio(currentId) {
-        const currentIndex = Array.from(audios).findIndex(audio => audio.id === `audio${currentId}`);
-        let prevIndex = currentIndex - 1;
-
-        while (prevIndex >= 0) {
-            const prevAudio = audios[prevIndex];
-            if (!sequenceIds.includes(parseInt(prevAudio.id.replace('audio', '')))) {
-                return prevAudio;
-            }
-            prevIndex--;
-        }
-
-        for (let i = audios.length - 1; i >= 0; i--) {
-            const prevAudio = audios[i];
-            if (!sequenceIds.includes(parseInt(prevAudio.id.replace('audio', '')))) {
-                return prevAudio;
-            }
-        }
-
-        return null;
-    }
-
-    function updateMediaSession(id) {
+    // Function to activate track and control buttons
+    function activateTrack(id) {
         const audio = document.getElementById(`audio${id}`);
-        if (!('mediaSession' in navigator) || !audio) return;
+        const playButton = document.querySelector(`.play-btn[data-id="${id}"]`);
+        const pauseButton = document.querySelector(`.pause-btn[data-id="${id}"]`);
 
-        navigator.mediaSession.metadata = new MediaMetadata({
-            title: `Track ${id}`,
-            artist: 'Music Base',
-            album: '',
-            artwork: [
-                { src: '/icon-192.png', sizes: '192x192', type: 'image/png' }
-            ]
+        if (!audio || !playButton || !pauseButton) return;
+
+        // Stop all other audios
+        audios.forEach(a => {
+            a.pause();
+            a.currentTime = 0;
         });
 
-        navigator.mediaSession.setActionHandler('play', () => {
-            audio.play();
-        });
+        // Disable all pause buttons and stop animations
+        disableAllPauseButtons();
+        stopAnimations();
+        deactivateAllButtons();
 
-        navigator.mediaSession.setActionHandler('pause', () => {
-            audio.pause();
-        });
+        // Play the selected audio
+        audio.play();
+        activeAudio = audio;
 
-        navigator.mediaSession.setActionHandler('previoustrack', () => {
-            const prev = findPreviousAudio(id);
-            if (prev) {
-                activeAudio?.pause();
-                activeAudio.currentTime = 0;
-                prev.play();
-                activeAudio = prev;
-                const prevId = prev.id.replace('audio', '');
-                deactivateAllButtons();
-                document.querySelector(`.play-btn[data-id="${prevId}"]`)?.classList.add('focus');
-                enablePauseButton(prevId);
-                updateMediaSession(prevId);
-                startAnimations();
-            }
-        });
+        // Enable pause button and set focus to play button
+        pauseButton.classList.remove('disabled');
+        pauseButton.classList.remove('focus');  // Don't focus pause button
+        playButton.classList.add('focus');      // Focus play button
 
-        navigator.mediaSession.setActionHandler('nexttrack', () => {
-            const next = findNextAudio(id);
-            if (next) {
-                activeAudio?.pause();
-                activeAudio.currentTime = 0;
-                next.play();
-                activeAudio = next;
-                const nextId = next.id.replace('audio', '');
-                deactivateAllButtons();
-                document.querySelector(`.play-btn[data-id="${nextId}"]`)?.classList.add('focus');
-                enablePauseButton(nextId);
-                updateMediaSession(nextId);
-                startAnimations();
-            }
-        });
-
-        navigator.mediaSession.setActionHandler('seekbackward', null);
-        navigator.mediaSession.setActionHandler('seekforward', null);
+        // Start animations
+        startAnimations();
     }
 
-    // Play button logic
-            playButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const id = button.getAttribute('data-id');
-                const audio = document.getElementById(`audio${id}`);
-                if (!audio) return;
-        
-                // If this audio is already active and playing, do nothing
-                if (activeAudio === audio && !audio.paused) return;
-        
-                // Pause and reset all other audios
-                audios.forEach(a => {
-                    if (a !== audio) {
-                        a.pause();
-                        a.currentTime = 0;
-                    }
-                });
-        
-                // Stop animations and disable all pause buttons
-                stopAnimations();
-                disableAllPauseButtons();
-        
-                // Remove focus from ALL control buttons
-                deactivateAllButtons();
-        
-                // Play this audio
-                audio.play();
-                activeAudio = audio;
-        
-                button.classList.add('focus');
-        
-                const pauseButton = document.querySelector(`.pause-btn[data-id="${id}"]`);
-                if (pauseButton) {
-                    pauseButton.classList.remove('disabled');   // Enable it
-                    pauseButton.classList.remove('focus');      // Do NOT allow focus
+    // Play Button Logic
+    playButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const id = button.getAttribute('data-id');
+            const audio = document.getElementById(`audio${id}`);
+
+            if (!audio) return;
+
+            // If the clicked audio is already playing, do nothing
+            if (activeAudio === audio && !audio.paused) return;
+
+            // Stop all other audios
+            audios.forEach(a => {
+                if (a !== audio) {
+                    a.pause();
+                    a.currentTime = 0;
                 }
-        
-                // Start visual/audio animation & update media session
-                startAnimations();
-                updateMediaSession(id);
             });
-        });
-        // Pause button logic
-                      pauseButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                if (button.classList.contains('disabled')) return;
-        
-                const id = button.getAttribute('data-id');
-                const audio = document.getElementById(`audio${id}`);
-                if (!audio) return;
-        
-                audio.pause();
-                button.classList.add('disabled');
-        
-                deactivateAllButtons();
-                button.classList.add('focus');
-        
-                stopAnimations();
-                activeAudio = null;
-            });
-        });
-    // Playlist track autoplay logic (IDs: 13–16)
-    audios.forEach(audio => {
-        audio.addEventListener('ended', () => {
-            const currentId = audio.id.replace('audio', '');
-            if (sequenceIds.includes(parseInt(currentId))) {
-                const nextId = playNextSequenceAudio(currentId);
-                if (nextId) updateMediaSession(nextId);
-            }
+
+            // Disable all pause buttons and stop animations
+            disableAllPauseButtons();
+            stopAnimations();
+
+            // Play the selected audio
+            audio.play();
+            enablePauseButton(id);
+            activeAudio = audio;
+
+            // Start animations
+            startAnimations();
+
+            // Set focus to the play button
+            buttons.forEach(btn => btn.classList.remove('focus'));
+            button.classList.add('focus');
         });
     });
 
-    function playNextSequenceAudio(currentId) {
-        const currentIndex = sequenceIds.indexOf(parseInt(currentId));
-        const nextIndex = (currentIndex + 1) % sequenceIds.length;
-        const nextId = sequenceIds[nextIndex];
-        const nextAudio = document.getElementById(`audio${nextId}`);
-        if (!nextAudio) return;
+    // Pause Button Logic
+    pauseButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (button.classList.contains('disabled')) return;
 
-        const currentAudio = document.getElementById(`audio${currentId}`);
-        currentAudio?.pause();
-        currentAudio.currentTime = 0;
+            const id = button.getAttribute('data-id');
+            const audio = document.getElementById(`audio${id}`);
 
-        disableAllPauseButtons();
-        stopAnimations();
+            // Pause the audio without resetting currentTime
+            audio.pause();
 
-        nextAudio.play();
-        activeAudio = nextAudio;
+            // Disable the paired pause button after pausing
+            button.classList.add('disabled');
 
-        deactivateAllButtons();
-        document.querySelector(`.play-btn[data-id="${nextId}"]`)?.classList.add('focus');
-        enablePauseButton(nextId);
-        startAnimations();
+            // Stop animations
+            stopAnimations();
 
-        return nextId;
-    }
+            // Update focus for buttons
+            buttons.forEach(btn => btn.classList.remove('focus'));
+            button.classList.add('focus');
+
+            // Clear active audio
+            activeAudio = null;
+        });
+    });
+
+    // Skip Forward and Skip Backward Logic
+    document.querySelector('#skip-forward').addEventListener('click', () => {
+        const currentId = parseInt(activeAudio?.id.replace('audio', '')) || 0;
+        const allIds = [13, 14, 15, 16]; // 🔁 All non-playlist track IDs
+        let index = allIds.indexOf(currentId);
+        index = (index + 1) % allIds.length;
+        const nextId = allIds[index];
+
+        activateTrack(nextId);
+    });
+
+    document.querySelector('#skip-backward').addEventListener('click', () => {
+        const currentId = parseInt(activeAudio?.id.replace('audio', '')) || 0;
+        const allIds = [13, 14, 15, 16]; // 🔁 All non-playlist track IDs
+        let index = allIds.indexOf(currentId);
+        index = (index - 1 + allIds.length) % allIds.length;
+        const prevId = allIds[index];
+
+        activateTrack(prevId);
+    });
+
+    // Sequence Playback Logic (if you have a sequence of tracks)
+    audios.forEach(audio => {
+        audio.addEventListener('ended', () => {
+            const currentId = audio.id.replace('audio', '');
+            const sequenceIds = [13, 14, 15, 16]; // Define sequence of IDs
+            if (sequenceIds.includes(parseInt(currentId))) {
+                const nextIndex = (sequenceIds.indexOf(parseInt(currentId)) + 1) % sequenceIds.length;
+                activateTrack(sequenceIds[nextIndex]);
+            }
+        });
+    });
 });
