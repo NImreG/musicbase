@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const sequenceIds = [13, 14, 15, 16];
 
-    // Helpers
     function disableAllPauseButtons() {
         pauseButtons.forEach(button => button.classList.add('disabled'));
     }
@@ -138,9 +137,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 startAnimations();
             }
         });
+
+        // Removed seekbackward and seekforward handlers
+        navigator.mediaSession.setActionHandler('seekbackward', null);
+        navigator.mediaSession.setActionHandler('seekforward', null);
     }
 
-    // Play Button Logic
+    // Play button logic
     playButtons.forEach(button => {
         button.addEventListener('click', () => {
             const id = button.getAttribute('data-id');
@@ -168,28 +171,33 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Pause Button Logic
+    // Pause button logic (restored hover/focus)
     pauseButtons.forEach(button => {
         button.addEventListener('click', () => {
             if (button.classList.contains('disabled')) return;
 
             const id = button.getAttribute('data-id');
             const audio = document.getElementById(`audio${id}`);
+            if (!audio) return;
+
             audio.pause();
             button.classList.add('disabled');
-            stopAnimations();
+
+            // Show pause focus
             buttons.forEach(btn => btn.classList.remove('focus'));
             button.classList.add('focus');
+
+            stopAnimations();
             activeAudio = null;
         });
     });
 
-    // Sequence Tracks Autoplay Logic
+    // Sequence track playback logic (autoplay 13-16)
     audios.forEach(audio => {
         audio.addEventListener('ended', () => {
             const currentId = audio.id.replace('audio', '');
             if (sequenceIds.includes(parseInt(currentId))) {
-                const nextId = playNextAudio(currentId); // keep original sequence logic
+                const nextId = playNextAudio(currentId);
                 if (nextId) updateMediaSession(nextId);
             }
         });
@@ -219,4 +227,3 @@ document.addEventListener('DOMContentLoaded', function () {
         return nextId;
     }
 });
-
