@@ -141,38 +141,46 @@ document.addEventListener('DOMContentLoaded', function () {
         navigator.mediaSession.setActionHandler('seekforward', null);
     }
 
-    // Play button logic
-    playButtons.forEach(button => {
+        // Play button logic
+            playButtons.forEach(button => {
         button.addEventListener('click', () => {
             const id = button.getAttribute('data-id');
             const audio = document.getElementById(`audio${id}`);
             if (!audio) return;
-
+    
             if (activeAudio === audio && !audio.paused) return;
-
+    
             audios.forEach(a => {
                 if (a !== audio) {
                     a.pause();
                     a.currentTime = 0;
                 }
             });
-
-            disableAllPauseButtons();
+    
             stopAnimations();
-
+    
+            // Reset all focus states
+            deactivateAllButtons(); // remove focus from all control buttons
+            disableAllPauseButtons(); // disable and remove focus from all pause buttons
+    
+            // Play selected audio
             audio.play();
             activeAudio = audio;
-
-            // Button focus logic
-            deactivateAllButtons();
+    
+            // Add focus to this play button
             button.classList.add('focus');
-            enablePauseButton(id);
-
+    
+            // Enable and focus the related pause button
+            const pauseButton = document.querySelector(`.pause-btn[data-id="${id}"]`);
+            if (pauseButton) {
+                pauseButton.classList.remove('disabled');
+                pauseButton.classList.add('focus');
+            }
+    
             updateMediaSession(id);
             startAnimations();
         });
     });
-
     // Pause button logic
     pauseButtons.forEach(button => {
         button.addEventListener('click', () => {
