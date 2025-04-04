@@ -184,25 +184,24 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
         // Pause button logic
-              pauseButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            if (button.classList.contains('disabled')) return;  // Ignore if pause button is disabled
-    
-            const id = button.getAttribute('data-id');
-            const audio = document.getElementById(`audio${id}`);
-            if (!audio) return;
-    
-            audio.pause();  // Pause the audio
-            button.classList.add('disabled');  // Disable the pause button (it should not be clickable anymore)
-    
-            // Remove focus from all buttons
-            deactivateAllButtons();
-            button.classList.add('focus');  // Focus the pause button (as it's now active)
-    
-            stopAnimations();
-            activeAudio = null;
+                      pauseButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (button.classList.contains('disabled')) return;
+        
+                const id = button.getAttribute('data-id');
+                const audio = document.getElementById(`audio${id}`);
+                if (!audio) return;
+        
+                audio.pause();
+                button.classList.add('disabled');
+        
+                deactivateAllButtons();
+                button.classList.add('focus');
+        
+                stopAnimations();
+                activeAudio = null;
+            });
         });
-    });
     // Playlist track autoplay logic (IDs: 13–16)
     audios.forEach(audio => {
         audio.addEventListener('ended', () => {
