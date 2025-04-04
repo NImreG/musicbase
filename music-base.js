@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const buttons = document.querySelectorAll('.control-btn');
     let activeAudio = null;
 
-    const nonPlaylistIds = [34, 35, 36, 37]; // All non-playlist track IDs
+    const playlistIds = [13, 14, 15, 16]; // Playlist IDs
 
     // Helper Functions
     function disableAllPauseButtons() {
@@ -36,7 +36,14 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Function to activate track and control buttons
+    // Function to activate and play the next track in the playlist
+    function playNextInPlaylist(currentId) {
+        const nextIndex = playlistIds.indexOf(currentId) + 1;
+        const nextId = playlistIds[nextIndex] || playlistIds[0]; // Loop back to the first track if at the end
+        activateTrack(nextId);
+    }
+
+    // Activate and play a track by its ID
     function activateTrack(id) {
         const audio = document.getElementById(`audio${id}`);
         const playButton = document.querySelector(`.play-btn[data-id="${id}"]`);
@@ -61,14 +68,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Enable pause button and set focus to play button
         pauseButton.classList.remove('disabled');
-        pauseButton.classList.remove('focus');  
-        playButton.classList.add('focus');      
+        pauseButton.classList.remove('focus');
+        playButton.classList.add('focus');
 
         // Start animations
         startAnimations();
     }
 
-    // Handle media session actions
+    // Handle media session actions (play, pause, next, previous)
     if ('MediaSession' in navigator) {
         navigator.mediaSession.setActionHandler('play', function() {
             if (activeAudio) {
@@ -88,38 +95,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
         navigator.mediaSession.setActionHandler('nexttrack', function() {
             const currentId = parseInt(activeAudio?.id.replace('audio', '')) || 0;
-            let index = nonPlaylistIds.indexOf(currentId);
-            index = (index + 1) % nonPlaylistIds.length;
-            const nextId = nonPlaylistIds[index];
+            if (playlistIds.includes(currentId)) return; // Skip next for playlist tracks
 
+            // Find the next valid track
+            const nextId = playlistIds[playlistIds.indexOf(currentId) + 1] || playlistIds[0];
             activateTrack(nextId);
-
-            // Focus logic based on whether the audio is playing or paused
-            if (activeAudio.paused) {
-                const pauseButton = document.querySelector(`.pause-btn[data-id="${nextId}"]`);
-                pauseButton?.classList.add('focus'); // Focus on the pause button if audio is paused
-            } else {
-                const playButton = document.querySelector(`.play-btn[data-id="${nextId}"]`);
-                playButton?.classList.add('focus'); // Focus on the play button if audio is playing
-            }
         });
 
         navigator.mediaSession.setActionHandler('previoustrack', function() {
             const currentId = parseInt(activeAudio?.id.replace('audio', '')) || 0;
-            let index = nonPlaylistIds.indexOf(currentId);
-            index = (index - 1 + nonPlaylistIds.length) % nonPlaylistIds.length;
-            const prevId = nonPlaylistIds[index];
+            if (playlistIds.includes(currentId)) return; // Skip previous for playlist tracks
 
+            // Find the previous valid track
+            const prevId = playlistIds[playlistIds.indexOf(currentId) - 1] || playlistIds[playlistIds.length - 1];
             activateTrack(prevId);
-
-            // Focus logic based on whether the audio is playing or paused
-            if (activeAudio.paused) {
-                const pauseButton = document.querySelector(`.pause-btn[data-id="${prevId}"]`);
-                pauseButton?.classList.add('focus'); // Focus on the pause button if audio is paused
-            } else {
-                const playButton = document.querySelector(`.play-btn[data-id="${prevId}"]`);
-                playButton?.classList.add('focus'); // Focus on the play button if audio is playing
-            }
         });
     }
 
@@ -183,6 +172,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Clear active audio
             activeAudio = null;
+        });
+    });
+
+    // Playlist Logic - Auto play next track in the playlist when current track ends
+    audios.forEach(audio => {
+        audio.addEventListener('ended', () => {
+            const currentId = parseInt(audio.id.replace('audio', ''));
+            if (playlistIds.includes(currentId)) {
+                playNextInPlaylist(currentId); // Automatically play the next track in the playlist
+            }
         });
     });
 });
