@@ -16,17 +16,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function enablePauseButton(id) {
         const pauseButton = document.querySelector(`.pause-btn[data-id="${id}"]`);
-        pauseButton?.classList.remove('disabled');
+        if (pauseButton) {
+            pauseButton.classList.remove('disabled');
+            pauseButton.classList.add('focus'); // Add focus to active pause button
+        }
     }
 
-    function deactivateAllPlayButtons() {
-        playButtons.forEach(button => button.classList.remove('focus'));
-    }
-
-    function updateFocusById(id) {
-        deactivateAllPlayButtons();
-        const button = document.querySelector(`.play-btn[data-id="${id}"]`);
-        button?.classList.add('focus');
+    function deactivateAllButtons() {
+        buttons.forEach(btn => btn.classList.remove('focus'));
     }
 
     function startAnimations() {
@@ -116,9 +113,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 prev.play();
                 activeAudio = prev;
                 const prevId = prev.id.replace('audio', '');
-                updateFocusById(prevId);
-                updateMediaSession(prevId);
+                deactivateAllButtons();
+                document.querySelector(`.play-btn[data-id="${prevId}"]`)?.classList.add('focus');
                 enablePauseButton(prevId);
+                updateMediaSession(prevId);
                 startAnimations();
             }
         });
@@ -131,14 +129,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 next.play();
                 activeAudio = next;
                 const nextId = next.id.replace('audio', '');
-                updateFocusById(nextId);
-                updateMediaSession(nextId);
+                deactivateAllButtons();
+                document.querySelector(`.play-btn[data-id="${nextId}"]`)?.classList.add('focus');
                 enablePauseButton(nextId);
+                updateMediaSession(nextId);
                 startAnimations();
             }
         });
 
-        // Removed seekbackward and seekforward handlers
         navigator.mediaSession.setActionHandler('seekbackward', null);
         navigator.mediaSession.setActionHandler('seekforward', null);
     }
@@ -164,14 +162,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
             audio.play();
             activeAudio = audio;
-            updateFocusById(id);
+
+            // Button focus logic
+            deactivateAllButtons();
+            button.classList.add('focus');
             enablePauseButton(id);
+
             updateMediaSession(id);
             startAnimations();
         });
     });
 
-    // Pause button logic (restored hover/focus)
+    // Pause button logic
     pauseButtons.forEach(button => {
         button.addEventListener('click', () => {
             if (button.classList.contains('disabled')) return;
@@ -183,8 +185,7 @@ document.addEventListener('DOMContentLoaded', function () {
             audio.pause();
             button.classList.add('disabled');
 
-            // Show pause focus
-            buttons.forEach(btn => btn.classList.remove('focus'));
+            deactivateAllButtons();
             button.classList.add('focus');
 
             stopAnimations();
@@ -192,18 +193,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Sequence track playback logic (autoplay 13-16)
+    // Playlist track autoplay logic (IDs: 13–16)
     audios.forEach(audio => {
         audio.addEventListener('ended', () => {
             const currentId = audio.id.replace('audio', '');
             if (sequenceIds.includes(parseInt(currentId))) {
-                const nextId = playNextAudio(currentId);
+                const nextId = playNextSequenceAudio(currentId);
                 if (nextId) updateMediaSession(nextId);
             }
         });
     });
 
-    function playNextAudio(currentId) {
+    function playNextSequenceAudio(currentId) {
         const currentIndex = sequenceIds.indexOf(parseInt(currentId));
         const nextIndex = (currentIndex + 1) % sequenceIds.length;
         const nextId = sequenceIds[nextIndex];
@@ -220,7 +221,8 @@ document.addEventListener('DOMContentLoaded', function () {
         nextAudio.play();
         activeAudio = nextAudio;
 
-        updateFocusById(nextId);
+        deactivateAllButtons();
+        document.querySelector(`.play-btn[data-id="${nextId}"]`)?.classList.add('focus');
         enablePauseButton(nextId);
         startAnimations();
 
