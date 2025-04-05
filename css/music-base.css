@@ -114,7 +114,7 @@ button {
 }
 
 
-@media (min-width: 1900px) {
+@media (min-width: 1910px) {
     .col-ultra-2 {
       flex: 0 0 16.6667%;
       max-width: 16.6667%;
