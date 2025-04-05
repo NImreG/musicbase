@@ -1,5 +1,25 @@
 document.addEventListener('DOMContentLoaded', function () {
-    alert("Üdvözlet a weboldalamon. Ez a weboldal Nagy Imre által készült, és folyamatosan fejlesztés alatt áll. Élvezd azokat a zenéket, amiket sikerült idáig összegyűjtenem."); // Alert on first load
+     const userLang = (navigator.language || navigator.userLanguage).split('-')[0]; // e.g. "en", "hu", "fr"
+
+    const translations = {
+        en: {
+            welcome: "Welcome to my website. This site was created by Imre Nagy and is still under development. Enjoy the music I’ve collected so far."
+        },
+        hu: {
+            welcome: "Üdvözlet a weboldalamon. Ez a weboldal Nagy Imre által készült, és folyamatosan fejlesztés alatt áll. Élvezd azokat a zenéket, amiket sikerült idáig összegyűjtenem."
+        },
+        fr: {
+            welcome: "Bienvenue sur mon site Web. Ce site a été créé par Imre Nagy et est toujours en cours de développement. Profitez de la musique que j'ai rassemblée jusqu'à présent."
+        },
+        es: {
+            welcome: "Bienvenido a mi sitio web. Este sitio fue creado por Imre Nagy y aún está en desarrollo. Disfruta de la música que he recopilado hasta ahora."
+        }
+    };
+
+    const lang = translations[userLang] ? userLang : 'en'; // fallback to English if unsupported
+
+    // 🔊 Alert in user's language
+    alert(translations[lang].welcome);
 
     const playButtons = document.querySelectorAll('.play-btn');
     const pauseButtons = document.querySelectorAll('.pause-btn');
