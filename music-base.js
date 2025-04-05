@@ -1,41 +1,47 @@
-document.addEventListener('DOMContentLoaded', function () {
-//Language Detection and Translations
-const userLang = (navigator.language || navigator.userLanguage).split('-')[0];
+    document.addEventListener('DOMContentLoaded', function () {
+    // 🌍 Language Detection and Translations
+    const userLang = (navigator.language || navigator.userLanguage).split('-')[0];
 
-const translations = {
-    en: {
-        welcome: "Welcome to my website. This site was created by Imre Nagy and is still under development. Enjoy the music I’ve collected so far.",
-        play: "Play",
-        pause: "Pause"
-    },
-    hu: {
-        welcome: "Üdvözlet a weboldalamon. Ez a weboldal Nagy Imre által készült, és folyamatosan fejlesztés alatt áll. Élvezd azokat a zenéket, amiket sikerült idáig összegyűjtenem.",
-        play: "Lejátszás",
-        pause: "Szünet"
-    },
-    fr: {
-        welcome: "Bienvenue sur mon site Web. Ce site a été créé par Imre Nagy et est toujours en cours de développement. Profitez de la musique que j'ai rassemblée jusqu'à présent.",
-        play: "Lecture",
-        pause: "Pause"
-    },
-    es: {
-        welcome: "Bienvenido a mi sitio web. Este sitio fue creado por Imre Nagy y aún está en desarrollo. Disfruta de la música que he recopilado hasta ahora.",
-        play: "Reproducir",
-        pause: "Pausa"
-    }
-};
+    const translations = {
+        en: {
+            welcome: "Welcome to my website. This site was created by Imre Nagy and is still under development. Enjoy the music I’ve collected so far.",
+            play: "Play",
+            pause: "Pause"
+        },
+        hu: {
+            welcome: "Üdvözlet a weboldalamon. Ez a weboldal Nagy Imre által készült, és folyamatosan fejlesztés alatt áll. Élvezd azokat a zenéket, amiket sikerült idáig összegyűjtenem.",
+            play: "Lejátszás",
+            pause: "Szünet"
+        },
+        fr: {
+            welcome: "Bienvenue sur mon site Web. Ce site a été créé par Imre Nagy et est toujours en cours de développement. Profitez de la musique que j'ai rassemblée jusqu'à présent.",
+            play: "Lecture",
+            pause: "Pause"
+        },
+        es: {
+            welcome: "Bienvenido a mi sitio web. Este sitio fue creado por Imre Nagy y aún está en desarrollo. Disfruta de la música que he recopilado hasta ahora.",
+            play: "Reproducir",
+            pause: "Pausa"
+        }
+    };
 
-const lang = translations[userLang] ? userLang : 'en'; // fallback to English
-const t = translations[lang];
+    const lang = translations[userLang] ? userLang : 'en'; // fallback
+    const t = translations[lang];
 
-//Show welcome alert
-alert(t.welcome);
+    // 🔊 Show welcome alert
+    alert(t.welcome);
 
-//Replace text on all elements with data-i18n
-document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (t[key]) el.textContent = t[key];
-});
+    // 🈳 Translate Play and Pause button text
+    const playButtons = document.querySelectorAll('.play-btn');
+    const pauseButtons = document.querySelectorAll('.pause-btn');
+
+    playButtons.forEach(btn => {
+        btn.textContent = t.play;
+    });
+
+    pauseButtons.forEach(btn => {
+        btn.textContent = t.pause;
+    });
 
     const playButtons = document.querySelectorAll('.play-btn');
     const pauseButtons = document.querySelectorAll('.pause-btn');
