@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', function () {
 //Language Detection and Translations
 const userLang = (navigator.language || navigator.userLanguage).split('-')[0];
 
