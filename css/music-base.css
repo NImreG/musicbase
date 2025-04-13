@@ -16,8 +16,8 @@ body .fo, .banner {
     height: 300px;
     background-repeat: no-repeat;
     background-size: cover;
-    border-bottom: 10px white solid;
     border-top: 10px white solid;
+    border-bottom: 10px white solid;
     border-left: white 10px double;
     border-right: white 10px double;
     text-align: center;
