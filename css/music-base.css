@@ -30,14 +30,14 @@ h1 {
     color: white;
     text-shadow: 5px 5px 3px black;
     position: relative;
-    top: 50px
+    top: 30px
 }
 
 a {
     text-decoration: none;
     color: white;
     position: relative;
-    top: 50px;
+    top: 30px;
     font-size: 60px;
     text-shadow: 5px 5px 3px black;
 }
