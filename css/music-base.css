@@ -7,8 +7,38 @@ body {
     pointer-events: none;
 }
 
-body .fo {
+body .fo, .banner {
     pointer-events: all;
+}
+
+.banner {
+    background-image: url(../images/musicbasebg.jpg);
+    height: 300px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-bottom: 10px white solid;
+    border-left: white 10px double;
+    border-right: white 10px double;
+    text-align: center;
+}
+
+h1 {
+    font-size: 100px;
+    font-variant: small-caps;
+    font-family: Audiowide;
+    color: white;
+    text-shadow: 5px 5px 3px black;
+    position: relative;
+    top: 50px
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    position: relative;
+    top: 50px;
+    font-size: 60px;
+    text-shadow: 5px 5px 3px black;
 }
 
 .btn-container{
