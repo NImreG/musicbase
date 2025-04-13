@@ -23,7 +23,11 @@ body .fo {
     text-align: center;
 }
 
-
+.normal {
+     white-space: nowrap;   /* Prevents text from wrapping */
+    overflow: hidden;      /* Hides any overflowing text */
+    text-overflow: ellipsis; /* Adds "..." at the end of overflowed text */
+}
 
 #szoveg {
     text-align: center;
