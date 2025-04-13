@@ -23,12 +23,6 @@ body .fo {
     text-align: center;
 }
 
-.normal {
-     white-space: nowrap;   /* Prevents text from wrapping */
-    overflow: hidden;      /* Hides any overflowing text */
-    text-overflow: ellipsis; /* Adds "..." at the end of overflowed text */
-}
-
 #szoveg {
     text-align: center;
     font-size: large;
@@ -126,6 +120,9 @@ figcaption {
     text-shadow: white 1px 1px 2px;
     letter-spacing: 1px;
     user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #kitolto {
