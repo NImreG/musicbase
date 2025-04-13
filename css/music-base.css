@@ -87,40 +87,6 @@ button {
     user-select: none;
 }
 
-@media screen and (max-width: 2550px) and (min-width: 1600px) {
-    .normal span {
-        display: none;
-    }
-}
-
-
-@media screen and (max-width: 1760px) and (min-width: 768px) {
-    body {
-        font-size: 75%;
-    }
-    .span2 {
-        display: none;
-    }
-}
-
-
-
-
-@media screen and (max-width: 1600px) and (min-width: 992px) {
-
-    span {
-        display: none;
-    }
-}
-
-
-@media (min-width: 1915px) {
-    .col-ultra-2 {
-      flex: 0 0 16.6667%;
-      max-width: 16.6667%;
-    }
-  }
-
 .play-btn {
     background-color: rgb(255 255 255 / 0.7);
 }
