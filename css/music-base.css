@@ -23,6 +23,15 @@ body .fo, .banner {
     text-align: center;
 }
 
+@media screen and (max-width: 1000px) {
+    h1 {
+        font-size: 60px;
+    }
+    a {
+        font-size: 40px;
+    }
+}
+
 h1 {
     font-size: 100px;
     font-variant: small-caps;
@@ -40,15 +49,6 @@ a {
     top: 30px;
     font-size: 60px;
     text-shadow: 5px 5px 3px black;
-}
-
-@media screen and (max-width: 1000px) {
-    h1 {
-        font-size: 60px;
-    }
-    a {
-        font-size: 40px;
-    }
 }
 
 .btn-container{
