@@ -43,8 +43,11 @@ a {
 }
 
 @media screen and (max-width: 1000px;) {
-    h1, a {
-        font-size: 70%;
+    h1 {
+        font-size: 60px;
+    }
+    a {
+        font-size: 40px;
     }
 }
 
