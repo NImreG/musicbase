@@ -42,7 +42,7 @@ a {
     text-shadow: 5px 5px 3px black;
 }
 
-@media screen and (max-width: 1000px;) {
+@media screen and (max-width: 1000px) {
     h1 {
         font-size: 60px;
     }
