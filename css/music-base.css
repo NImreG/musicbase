@@ -42,6 +42,12 @@ a {
     text-shadow: 5px 5px 3px black;
 }
 
+@media screen and (max-width: 1000px;) {
+    h1, a {
+        font-size: 70%;
+    }
+}
+
 .btn-container{
     display: flex;
 }
