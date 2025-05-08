@@ -41,6 +41,10 @@ table {
     margin-top: 40px;
 }
 
+td {
+    margin: auto;
+}
+
 tbody {
     display: block;
     padding: 0px;
@@ -112,9 +116,15 @@ tbody {
     }
 }
 
-@media  screen and (max-width: 750px) {
+@media  screen and (max-width: 800px) {
     table {
-        width: 100%;
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    h1 {
+        margin-top: 36px;
     }
 }
 
@@ -253,6 +263,7 @@ figcaption {
     height: 400px;
 
 }
+
 .oszlop1 {
     animation-name: hangsáv1;
     animation-duration: 2s;
