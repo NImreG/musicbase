@@ -1,4 +1,3 @@
-
 body {
     padding: 20px;
     padding-top: 5px;
@@ -12,43 +11,111 @@ body .fo, .banner {
 }
 
 .banner {
-    background-image: url(../images/musicbasebg.jpg);
+    background-image: url(../images/music-banner.png);
     height: 300px;
     background-repeat: no-repeat;
     background-size: cover;
-    border-top: 10px white solid;
     border-bottom: 10px white solid;
+    border-top: 10px white solid;
     border-left: white 10px double;
     border-right: white 10px double;
     text-align: center;
-}
-
-@media screen and (max-width: 1000px) {
-    h1 {
-        font-size: 60px;
-    }
-    a {
-        font-size: 40px;
-    }
+    font-weight: 900;
+    background-position: center;
+    
 }
 
 h1 {
-    font-size: 100px;
+    display: block;
     font-variant: small-caps;
     font-family: Audiowide;
-    color: white;
-    text-shadow: 5px 5px 3px black;
-    position: relative;
-    top: 30px
+    text-shadow: 10px 10px 5px black;
+    font-size: 100px;
+    text-align: center;
+    color: rgb( 255 255 255);
 }
 
-a {
-    text-decoration: none;
-    color: white;
-    position: relative;
-    top: 30px;
-    font-size: 60px;
-    text-shadow: 5px 5px 3px black;
+table {
+    margin: auto;
+    width: 50%;
+    margin-top: 40px;
+}
+
+tbody {
+    display: block;
+    padding: 0px;
+    margin-left: 20px;
+}
+
+#td1, #td3, #td7, #td9 {
+    height: 35px;
+}
+
+#td1 {
+    border-left: 10px white solid;
+    border-top: 10px white solid;
+    border-top-left-radius: 20px;
+}
+
+#td3 {
+    border-right: 10px white solid;
+    border-top: 10px white solid;
+    border-top-right-radius: 20px;
+}
+
+#td7 {
+    border-left: 10px white solid;
+    border-bottom:  10px white solid;
+    border-bottom-left-radius: 20px;
+}
+
+#td9 {
+   border-right: 10px white solid;
+   border-bottom:  10px white solid;
+   border-bottom-right-radius: 20px;
+}
+
+@media screen and (max-width: 1600px) {
+    h1 {
+        font-size: 75px;
+    }
+
+    #td5 {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    h1 {
+        font-size: 60px;
+    }
+
+    #td5 {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    h1 {
+        font-size: 50px;
+    }
+
+    #td5 {
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+    table {
+        width: 70%;
+    }
+}
+
+@media  screen and (max-width: 750px) {
+    table {
+        width: 100%;
+    }
 }
 
 .btn-container{
@@ -65,7 +132,6 @@ a {
 
 #szoveg {
     text-align: center;
-    font-size: large;
     font-weight: bold;
     font-family: Arial;
     font-variant-caps: small-caps;
@@ -187,7 +253,6 @@ figcaption {
     height: 400px;
 
 }
-
 .oszlop1 {
     animation-name: hangsáv1;
     animation-duration: 2s;
