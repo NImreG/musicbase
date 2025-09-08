@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EQUINOX</title>
+  <style>
+    body {
+      margin: 0;
+      background: transparent;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Audiowide', sans-serif;
+      cursor: pointer;
+    }
+
+    .outercon {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Rotating halves container */
+    .innercon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 140vmax;
+      height: 140vmax;
+      transform: translate(-50%, -50%);
+      display: flex;
+      border-radius: 50%;
+      animation-play-state: paused;
+      opacity: 0;
+    }
+
+    .innercon.top {
+      animation: rotate 3s linear infinite;
+    }
+
+    .innercon.bottom {
+      animation: rotateReverse 3s linear infinite;
+    }
+
+    .half {
+      flex: 1;
+      transition: background-color 0.25s ease, filter 0.1s ease;
+    }
+
+    .brightness {
+      background-color: grey;
+    }
+
+    .darkness {
+      background-color: grey;
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    @keyframes rotateReverse {
+      0% {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+
+      100% {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+    }
+
+    /* Balls */
+    .innercon .ball {
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      z-index: 10;
+      transition: opacity 0.5s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+      opacity: 0;
+    }
+
+    .innercon .ball.top {
+      top: 50%;
+      left: 70%;
+      transform: translateX(-50%);
+    }
+
+    .innercon .ball.bottom {
+      bottom: 50%;
+      left: 30%;
+      transform: translateX(-50%);
+    }
+
+    /* Canvas container for EQUINOX text */
+    .canvas-container {
+      position: absolute;
+      top: 43%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 120px;
+    }
+
+    .canvas-container.tilt {
+      animation: tilt 2s linear infinite;
+    }
+
+    /* Tilt keyframes */
+    @keyframes tilt {
+      0% {
+        transform: translateX(-50%) rotateZ(0deg);
+      }
+
+      25% {
+        transform: translateX(-50%) rotateZ(5deg);
+      }
+
+      50% {
+        transform: translateX(-50%) rotateZ(0deg);
+      }
+
+      75% {
+        transform: translateX(-50%) rotateZ(-5deg);
+      }
+
+      100% {
+        transform: translateX(-50%) rotateZ(0deg);
+      }
+    }
+
+    /* Disabled canvas text initially */
+    .canvas-container.disabled-text canvas {
+      pointer-events: auto;
+    }
+
+    /* Audio container */
+    .tempaudio {
+      display: none;
+      position: absolute;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="outercon">
+
+    <!-- Rotating halves + balls -->
+    <div class="innercon top">
+      <div class="half brightness"></div>
+      <div class="half darkness"></div>
+      <div class="ball top"></div>
+      <div class="ball bottom"></div>
+    </div>
+
+    <div class="innercon bottom">
+      <div class="half brightness"></div>
+      <div class="half darkness"></div>
+      <div class="ball top"></div>
+      <div class="ball bottom"></div>
+    </div>
+
+    <!-- Clickable EQUINOX canvas -->
+    <div class="canvas-container disabled-text" id="canvasContainer">
+      <canvas id="mainCanvas" width="800" height="120"></canvas>
+    </div>
+
+    <!-- Audio -->
+    <div class="tempaudio" id="audioContainer">
+      <audio id="equinoxAudio" controls>
+        <source src="EQUINOX_Sol's_RNG.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+
+  </div>
+
+  <script>
+    const canvas = document.getElementById('mainCanvas');
+    const ctx = canvas.getContext('2d');
+    const canvasContainer = document.getElementById('canvasContainer');
+    const innerCons = document.querySelectorAll('.innercon');
+    const topBalls = document.querySelectorAll('.ball.top');
+    const bottomBalls = document.querySelectorAll('.ball.bottom');
+    const brightnessEls = document.querySelectorAll('.brightness');
+    const darknessEls = document.querySelectorAll('.darkness');
+    const audioContainer = document.getElementById('audioContainer');
+    const audioElement = document.getElementById('equinoxAudio');
+
+    const text = "EQUINOX";
+    const fontSize = 100;
+    const fontFamily = "Audiowide, sans-serif";
+
+    let animationsEnabled = false;
+    let swapInterval = null;
+    let halfSwapWhite = true;
+    let textSwapWhite = false;
+    let lastTextSwap = performance.now();
+
+    // ===== Draw grey disabled text initially =====
+    function drawDisabledText() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.font = `${fontSize}px ${fontFamily}`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = "grey";
+      ctx.shadowColor = "rgba(0,0,0,0.3)";
+      ctx.shadowBlur = 5;
+      ctx.fillText(text, canvas.width / 2, canvas.height / 1.8);
+    }
+    drawDisabledText();
+
+    // ===== Animated top/bottom text =====
+    function draw(timestamp = performance.now()) {
+      if (!animationsEnabled) return;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const x = canvas.width / 2;
+      const y = canvas.height / 1.8;
+
+      if (timestamp - lastTextSwap > 250) {
+        lastTextSwap = timestamp;
+        textSwapWhite = !textSwapWhite;
+      }
+
+      // Top half
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(0, 0, canvas.width, canvas.height / 2);
+      ctx.clip();
+      ctx.font = `${fontSize}px ${fontFamily}`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = textSwapWhite ? "white" : "black";
+      ctx.shadowColor = textSwapWhite ? "black" : "white";
+      ctx.shadowBlur = 10;
+      ctx.fillText(text, x, y);
+      ctx.restore();
+
+      // Bottom half
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(0, canvas.height / 2, canvas.width, canvas.height / 2);
+      ctx.clip();
+      ctx.font = `${fontSize}px ${fontFamily}`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = textSwapWhite ? "black" : "white";
+      ctx.shadowColor = textSwapWhite ? "white" : "black";
+      ctx.shadowBlur = 10;
+      ctx.fillText(text, x, y);
+      ctx.restore();
+
+      requestAnimationFrame(draw);
+    }
+
+    // ===== Half+ball color swap =====
+    function applyHalfColors() {
+      const bright = halfSwapWhite ? "white" : "black";
+      const dark = halfSwapWhite ? "black" : "white";
+
+      brightnessEls.forEach(el => el.style.backgroundColor = bright);
+      darknessEls.forEach(el => el.style.backgroundColor = dark);
+
+      topBalls.forEach(b => {
+        b.style.backgroundColor = bright;
+        b.style.boxShadow = bright === "white" ? "0 0 60px rgba(255,255,255,0.85)" : "0 0 60px rgba(0,0,0,0.85)";
+        b.style.opacity = '1';
+      });
+      bottomBalls.forEach(b => {
+        b.style.backgroundColor = dark;
+        b.style.boxShadow = dark === "white" ? "0 0 60px rgba(255,255,255,0.85)" : "0 0 60px rgba(0,0,0,0.85)";
+        b.style.opacity = '1';
+      });
+    }
+
+    function swapHalves() {
+      brightnessEls.forEach(el => el.style.filter = 'blur(4px)');
+      darknessEls.forEach(el => el.style.filter = 'blur(4px)');
+
+      halfSwapWhite = !halfSwapWhite;
+      applyHalfColors();
+
+      setTimeout(() => {
+        brightnessEls.forEach(el => el.style.filter = 'blur(0px)');
+        darknessEls.forEach(el => el.style.filter = 'blur(0px)');
+      }, 100);
+    }
+
+    // ===== Click to enable everything =====
+    canvasContainer.addEventListener('click', () => {
+      if (animationsEnabled) return;
+      animationsEnabled = true;
+
+      // Enable tilt animation
+      canvasContainer.classList.add('tilt');
+
+      // Remove disabled effect
+      canvasContainer.classList.remove('disabled-text');
+      canvasContainer.classList.add('enabled');
+
+      // Start rotations, half+ball swap, audio, and animated text
+      innerCons.forEach(c => { c.style.opacity = '1'; c.style.animationPlayState = 'running'; });
+      applyHalfColors();
+      if (!swapInterval) swapInterval = setInterval(swapHalves, 1250);
+      audioContainer.style.display = 'block';
+      audioElement.play();
+      requestAnimationFrame(draw);
+    });
+  </script>
+
+</body>
+
+</html>
