@@ -24,7 +24,7 @@
         const ringWidth = 2;
         let rings = [];
         const MAX_DISTANCE = 500;
-        const ROTATION_SPEED = 90 * Math.PI / 180;
+        const ROTATION_SPEED = 135 * Math.PI / 180;
         let lastTime = performance.now();
 
         let isEnabled = false; // master toggle state
@@ -137,8 +137,8 @@
         ];
 
         let ships = [
-            { angle: 0, radius: 600, speed: 1 },
-            { angle: Math.PI, radius: 600, speed: 1 }
+            { angle: 0, radius: 600, speed: 1.5 },
+            { angle: Math.PI, radius: 600, speed: 1.5 }
         ];
 
         let particles = [];
@@ -236,7 +236,7 @@
                         });
                     }
                     ctx.restore();
-                    ring.size += 0.4;
+                    ring.size += 0.6;
                 });
 
                 rings = rings.filter(ring => (ring.size + ringWidth) * RADIUS <= MAX_DISTANCE);
