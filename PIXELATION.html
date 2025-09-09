@@ -88,7 +88,7 @@
             ringCount++;
         }
 
-        function startSpawning() { if (!spawnInterval) spawnInterval = setInterval(spawnRing, 500); }
+        function startSpawning() { if (!spawnInterval) spawnInterval = setInterval(spawnRing, 375); }
         function stopSpawning() { clearInterval(spawnInterval); spawnInterval = null; }
 
         document.addEventListener("visibilitychange", () => {
@@ -255,5 +255,6 @@
         animate();
     </script>
 </body>
+
 
 </html>
