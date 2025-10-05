@@ -8,6 +8,7 @@ body {
 
 body .fo, .banner, footer {
     pointer-events: all;
+    user-select: all;
 }
 
 ins {
@@ -981,6 +982,7 @@ figcaption {
         margin-bottom: 0px;
     }
 }
+
 
 
 
