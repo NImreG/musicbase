@@ -6,7 +6,7 @@ body {
     pointer-events: none;
 }
 
-body .fo, .banner {
+body .fo, .banner, .essentials {
     pointer-events: all;
 }
 
@@ -981,6 +981,7 @@ figcaption {
         margin-bottom: 0px;
     }
 }
+
 
 
 
