@@ -6,7 +6,7 @@ body {
     pointer-events: none;
 }
 
-body .fo, .banner {
+body .fo, .banner, footer {
     pointer-events: all;
 }
 
@@ -26,8 +26,6 @@ ins {
     text-align: center;
     font-weight: 900;
     background-position: center;
-    
-}
 
 h1 {
     display: block;
@@ -983,5 +981,6 @@ figcaption {
         margin-bottom: 0px;
     }
 }
+
 
 
