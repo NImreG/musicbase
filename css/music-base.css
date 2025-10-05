@@ -10,6 +10,10 @@ body .fo, .banner {
     pointer-events: all;
 }
 
+ins {
+    z-index: 1;
+}
+
 .banner {
     background-image: url(../images/music-banner.png);
     height: 300px;
@@ -979,4 +983,5 @@ figcaption {
         margin-bottom: 0px;
     }
 }
+
 
