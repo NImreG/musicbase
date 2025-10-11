@@ -1,0 +1,332 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap');
+/* =======================
+   BASE STYLING
+======================= */
+body {
+  margin: 0;
+  height: 100vh;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: background 1s ease;
+}
+
+/* =======================
+   VIDEO BACKGROUND
+======================= */
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  filter: brightness(0.5);
+  transition: opacity 0.8s ease;
+}
+
+/* =======================
+   HEADING (CENTERED VISUALLY)
+======================= */
+h1 {
+  position: absolute;
+  top: 45%; /* visually centered */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Noto Serif', 'Noto Serif SC', serif; /* Latin normal + SC fallback */
+  font-style: italic;
+  font-size: 80px;
+  text-align: center;
+  z-index: 5;
+  user-select: none;
+  cursor: pointer;
+  padding: 20px; /* padding around text */
+  background-color: rgba(0, 0, 0, 0.6); /* translucent black background */
+  box-shadow: 0 0 15px black; /* soft base shadow */
+  transition: color 0.8s ease, text-shadow 0.8s ease;
+  pointer-events: auto;
+}
+
+/* Passive (startup) state) */
+body.disabled h1 {
+  color: grey;
+  text-shadow: none;          /* remove glow */
+  background-color: transparent; /* remove black box */
+  padding: 0;                 /* remove extra space if desired */
+  box-shadow: none;           /* remove box-shadow */
+}
+
+/* Active state (after click) */
+body:not(.disabled) h1 {
+  color: lightblue;
+  text-shadow: 0 0 20px white, 0 0 40px lightblue;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  box-shadow: 0 0 15px black;
+}
+
+/* =======================
+   LUMINOSITY CORE + SPIKES
+======================= */
+.luminosity {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  transition: opacity 0.8s ease;
+  /* Aura-wide glow */
+  filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.6));
+}
+
+.core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, white 0%, #666 60%, transparent 100%);
+  transform: translate(-50%, -50%);
+  /* box-shadow for the core itself */
+  box-shadow: 0 0 50px 25px rgba(255, 255, 255, 0.8);
+  z-index: 2;
+  transition: opacity 0.8s ease;
+}
+
+.spike {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 50% 100%;
+  opacity: 0.9;
+  width: 120px;
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9));
+  pointer-events: none;
+}
+
+/* =======================
+   DISABLED STATE
+======================= */
+body.disabled {
+  background: white;
+}
+
+body.disabled .luminosity,
+body.disabled .core,
+body.disabled #bg-video {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* =======================
+   ENABLED STATE
+======================= */
+body:not(.disabled) {
+  background: black;
+}
+
+body:not(.disabled) .luminosity,
+body:not(.disabled) .core,
+body:not(.disabled) #bg-video {
+  opacity: 1;
+  visibility: visible;
+}
+
+  #spike-1 {
+      animation-name: float-out;
+      animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+      animation-iteration-count: infinite;
+      animation-duration: 4s;
+  }
+
+  @keyframes float-out {
+      0% {
+          transform: translate(-50%, -100%) rotate(0deg) translateY(-22%);
+      }
+
+      50% {
+          transform: translate(-50%, -100%) rotate(0deg) translateY(-50%);
+      }
+
+      100% {
+          transform: translate(-50%, -100%) rotate(0deg) translateY(-22%);
+      }
+  }
+
+  #spike-2 {
+      animation-name: float-out2;
+      animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+      animation-iteration-count: infinite;
+      animation-duration: 4s;
+  }
+
+  @keyframes float-out2 {
+      0% {
+          transform: translate(-50%, -100%) rotate(90deg) translateY(-22%);
+      }
+
+      50% {
+          transform: translate(-50%, -90%) rotate(90deg) translateY(-40%);
+      }
+
+      100% {
+          transform: translate(-50%, -100%) rotate(90deg) translateY(-22%);
+      }
+  }
+
+  #spike-3 {
+      animation-name: float-out3;
+      animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+      animation-iteration-count: infinite;
+      animation-duration: 4s;
+  }
+
+  @keyframes float-out3 {
+      0% {
+          transform: translate(-50%, -100%) rotate(180deg) translateY(-22%);
+      }
+
+      50% {
+          transform: translate(-50%, -100%) rotate(180deg) translateY(-40%);
+      }
+
+      100% {
+          transform: translate(-50%, -100%) rotate(180deg) translateY(-22%);
+      }
+  }
+
+  #spike-4 {
+      animation-name: float-out4;
+      animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+      animation-iteration-count: infinite;
+      animation-duration: 4s;
+  }
+
+  @keyframes float-out4 {
+      0% {
+          transform: translate(-50%, -100%) rotate(270deg) translateY(-22%);
+      }
+
+      50% {
+          transform: translate(-50%, -90%) rotate(270deg) translateY(-40%);
+      }
+
+      100% {
+          transform: translate(-50%, -100%) rotate(270deg) translateY(-22%);
+      }
+  }
+
+  #spike-5 {
+      animation-name: float-out5;
+      animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+      animation-iteration-count: infinite;
+      animation-duration: 4s;
+  }
+
+  @keyframes float-out5 {
+      0% {
+          transform: translate(-50%, -100%) rotate(58deg) translateY(-22%);
+      }
+
+      50% {
+          transform: translate(-30%, -101%) rotate(58deg) translateY(-30%);
+      }
+
+      100% {
+          transform: translate(-50%, -100%) rotate(58deg) translateY(-22%);
+      }
+  }
+
+  #spike-6 {
+      animation-name: float-out6;
+      animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+      animation-iteration-count: infinite;
+      animation-duration: 4s;
+  }
+
+  @keyframes float-out6 {
+      0% {
+          transform: translate(-50%, -100%) rotate(302deg) translateY(-22%);
+      }
+
+      50% {
+          transform: translate(-80%, -101%) rotate(302deg) translateY(-30%);
+      }
+
+      100% {
+          transform: translate(-50%, -100%) rotate(302deg) translateY(-22%);
+      }
+  }
+
+  #spike-7 {
+      animation-name: float-out7;
+      animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+      animation-iteration-count: infinite;
+      animation-duration: 4s;
+  }
+
+  @keyframes float-out7 {
+      0% {
+          transform: translate(-50%, -100%) rotate(122deg) translateY(-22%);
+      }
+
+      50% {
+          transform: translate(-30%, -85%) rotate(122deg) translateY(-30%);
+      }
+
+      100% {
+          transform: translate(-50%, -100%) rotate(122deg) translateY(-22%);
+      }
+  }
+
+  #spike-8 {
+      animation-name: float-out8;
+      animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1);
+      animation-iteration-count: infinite;
+      animation-duration: 4s;
+  }
+
+  @keyframes float-out8 {
+      0% {
+          transform: translate(-50%, -100%) rotate(238deg) translateY(-22%);
+      }
+
+      50% {
+          transform: translate(-80%, -85%) rotate(238deg) translateY(-30%);
+      }
+
+      100% {
+          transform: translate(-50%, -100%) rotate(238deg) translateY(-22%);
+      }
+  }
+
+  #left-choice {
+    font-size: 100px;
+    text-decoration: none;
+    position: absolute;
+    top: 43%;
+    left: 2%;
+    font-family: Audiowide;
+    color: grey;
+    z-index: 1;
+}
+
+#right-choice {
+    font-size: 100px;
+    text-decoration: none;
+    position: absolute;
+    top: 43%;
+    right: 2%;
+    font-family: Audiowide;
+    color: grey;
+    z-index: 1;
+}

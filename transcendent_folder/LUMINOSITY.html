@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUMINOSITY</title>
+  <link rel="stylesheet" href="LUMINOSITY.css">
+</head>
+
+<body class="disabled">
+  <a id="left-choice" href="PIXELATION.html">&lt</a>
+  <a id="right-choice" href="EQUINOX.html">&gt</a>
+  <h1 id="toggleText">Luminosity</h1>
+
+  <video id="bg-video" autoplay muted>
+    <source src="Luminosity_intro.mp4" type="video/mp4">
+  </video>
+
+  <audio id="bg-music" src="Dance_on_the_Mars.mp3"></audio>
+
+  <div class="luminosity">
+    <div class="core"></div>
+  </div>
+
+  <script>
+    const body = document.body;
+    const h1 = document.getElementById('toggleText');
+    const video = document.getElementById('bg-video');
+    const music = document.getElementById('bg-music');
+    const aura = document.querySelector('.luminosity');
+
+    // Build spikes dynamically
+    const spikeData = [
+      { id: 'spike-1', src: 'side_spike.png' },
+      { id: 'spike-2', src: 'side_spike.png' },
+      { id: 'spike-3', src: 'side_spike.png' },
+      { id: 'spike-4', src: 'side_spike.png' },
+      { id: 'spike-5', src: 'corner_spike.png' },
+      { id: 'spike-6', src: 'corner_spike.png' },
+      { id: 'spike-7', src: 'corner_spike.png' },
+      { id: 'spike-8', src: 'corner_spike.png' }
+    ];
+
+    spikeData.forEach((spike, i) => {
+      const el = document.createElement('img');
+      el.src = spike.src;
+      el.id = spike.id;
+      el.className = 'spike';
+
+      // Set smaller width for side spikes
+      if (i < 4) el.style.width = '15%'; // side spikes
+      else el.style.width = '20%';       // corner spikes
+
+      const angle = (360 / 8) * i;
+      el.style.transform = `translate(-50%, -100%) rotate(${angle}deg)`;
+
+      aura.appendChild(el);
+    });
+
+    // Toggle everything on click
+    h1.addEventListener('click', () => {
+      body.classList.toggle('disabled');
+
+      // Video toggle
+      if (!body.classList.contains('disabled')) {
+        video.currentTime = 0;
+        video.play();
+      } else {
+        video.pause();
+      }
+
+      // Music toggle
+      if (!body.classList.contains('disabled')) {
+        music.play(); // resumes from currentTime
+      } else {
+        music.pause(); // saves currentTime
+      }
+    });
+  </script>
+
+</body>
+
+</html>

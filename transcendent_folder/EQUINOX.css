@@ -1,0 +1,164 @@
+body {
+  margin: 0;
+  background: transparent;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'Audiowide', sans-serif;
+  cursor: pointer;
+}
+
+.outercon {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Rotating halves container */
+.innercon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140vmax;
+  height: 140vmax;
+  transform: translate(-50%, -50%);
+  display: flex;
+  border-radius: 50%;
+  animation-play-state: paused;
+  opacity: 0;
+}
+
+.innercon.top {
+  animation: rotate 3s linear infinite;
+}
+
+.innercon.bottom {
+  animation: rotateReverse 3s linear infinite;
+}
+
+.half {
+  flex: 1;
+  transition: background-color 0.25s ease, filter 0.1s ease;
+}
+
+.brightness {
+  background-color: grey;
+}
+
+.darkness {
+  background-color: grey;
+}
+
+@keyframes rotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes rotateReverse {
+  0% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+}
+
+/* Balls */
+.innercon .ball {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  z-index: 10;
+  transition: opacity 0.5s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+  opacity: 0;
+}
+
+.innercon .ball.top {
+  top: 50%;
+  left: 70%;
+  transform: translateX(-50%);
+}
+
+.innercon .ball.bottom {
+  bottom: 50%;
+  left: 30%;
+  transform: translateX(-50%);
+}
+
+/* Canvas container */
+.canvas-container {
+  position: absolute;
+  top: 43%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 120px;
+}
+
+.canvas-container.tilt {
+  animation: tilt 2s linear infinite;
+}
+
+@keyframes tilt {
+  0% {
+    transform: translateX(-50%) rotateZ(0deg);
+  }
+
+  25% {
+    transform: translateX(-50%) rotateZ(5deg);
+  }
+
+  50% {
+    transform: translateX(-50%) rotateZ(0deg);
+  }
+
+  75% {
+    transform: translateX(-50%) rotateZ(-5deg);
+  }
+
+  100% {
+    transform: translateX(-50%) rotateZ(0deg);
+  }
+}
+
+/* Disabled canvas text initially */
+.canvas-container.disabled-text canvas {
+  pointer-events: auto;
+}
+
+/* Hide audio element */
+.tempaudio audio {
+  display: none;
+}
+
+#left-choice {
+    font-size: 100px;
+    text-decoration: none;
+    position: absolute;
+    top: 43%;
+    left: 2%;
+    font-family: Audiowide;
+    color: grey;
+    z-index: 1;
+}
+
+#right-choice {
+    font-size: 100px;
+    text-decoration: none;
+    position: absolute;
+    top: 43%;
+    right: 2%;
+    font-family: Audiowide;
+    color: grey;
+    z-index: 1;
+}

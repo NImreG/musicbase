@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luminosity</title>
+
+<!-- Google Fonts: Noto Serif SC for style -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  h1 {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 80px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 15px black;
+    text-align: center;
+    z-index: 5;
+    cursor: pointer;
+    user-select: none;
+
+    /* ensure normal text, no uppercase */
+    text-transform: none;
+    font-variant: normal;
+    font-feature-settings: "smcp" 0, "c2sc" 0;
+    letter-spacing: normal;
+  }
+
+  /* Disabled state (initial) */
+  body.disabled h1 {
+    color: grey;
+    text-shadow: none;
+  }
+
+  /* Active state (after click) */
+  body:not(.disabled) h1 {
+    color: lightblue;
+    text-shadow: 0 0 20px white, 0 0 40px lightblue;
+  }
+</style>
+</head>
+<body class="disabled">
+
+<h1 id="toggleText">Luminosity</h1>
+
+<script>
+  const body = document.body;
+  const h1 = document.getElementById('toggleText');
+
+  h1.addEventListener('click', () => {
+    // toggle class on body to switch h1 color
+    body.classList.toggle('disabled');
+  });
+</script>
+
+</body>
+</html>

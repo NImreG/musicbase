@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>PIXELATION</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="PIXELATION.css">
+</head>
+
+<body>
+    <h1 id="title">PIXELATION</h1>
+    <canvas id="scene"></canvas>
+    <audio id="bg-music" src="t+pazolite-CENSORED!!.mp3" loop></audio>
+    <a id="right-choice" href="LUMINOSITY.html">&gt</a>
+    <a id="left-choice" href="EQUINOX.html">&lt</a>
+    <script>
+        const canvas = document.getElementById('scene');
+        const ctx = canvas.getContext('2d');
+        const title = document.getElementById('title');
+        const music = document.getElementById('bg-music');
+
+        let globalHue = 0;
+        const RADIUS = 13;
+        const ringWidth = 2;
+        let rings = [];
+        const MAX_DISTANCE = 500;
+        const ROTATION_SPEED = 90 * Math.PI / 180;
+        let lastTime = performance.now();
+
+        let isEnabled = false; // master toggle state
+        let ringCount = 0;
+        let spawnInterval;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function plot(px, py, size, hue, alpha) {
+            ctx.fillStyle = `hsla(${hue}, 100%, 50%, ${alpha})`;
+            ctx.shadowBlur = 20;
+            ctx.shadowColor = `hsl(${hue}, 100%, 50%)`;
+            ctx.fillRect(px, py, size, size);
+        }
+
+        function drawCenterGlow(cx, cy, hue) {
+            const radius = 400;
+            const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+            gradient.addColorStop(0, `hsla(${hue}, 100%, 20%, 0.5)`);
+            gradient.addColorStop(1, `hsla(${hue}, 100%, 20%, 0)`);
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function getCirclePoints(r) {
+            let x = 0, y = r, d = 3 - 2 * r;
+            const points = [];
+            while (y >= x) {
+                points.push([x, y], [-x, y], [x, -y], [-x, -y],
+                    [y, x], [-y, x], [y, -x], [-y, -x]);
+                x++;
+                if (d > 0) { y--; d = d + 4 * (x - y) + 10; } else { d = d + 4 * x + 6; }
+            }
+            return points;
+        }
+
+        function generateAlphaMap(count) {
+            const alphas = [];
+            for (let i = 0; i < count; i++) {
+                alphas.push(Math.random() * 0.8);
+            }
+            return alphas;
+        }
+
+        function spawnRing() {
+            const points = getCirclePoints(RADIUS);
+            rings.push({
+                size: 7,
+                points: points,
+                alphaMap: generateAlphaMap(points.length),
+                rotation: 0,
+                clockwise: ringCount % 2 === 0
+            });
+            ringCount++;
+        }
+
+        function startSpawning() { if (!spawnInterval) spawnInterval = setInterval(spawnRing, 500); }
+        function stopSpawning() { clearInterval(spawnInterval); spawnInterval = null; }
+
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden && isEnabled) stopSpawning();
+            else if (!document.hidden && isEnabled) startSpawning();
+        });
+
+        // === MASTER TOGGLE ===
+        title.addEventListener("click", () => {
+            isEnabled = !isEnabled;
+            if (isEnabled) {
+                document.body.style.background = "black";
+                startSpawning();
+                music.play().catch(err => console.log("Music error:", err));
+            } else {
+                document.body.style.background = "white";
+                stopSpawning();
+                rings = [];
+                music.pause(); // keeps progress, no reset
+                title.style.color = "grey";
+                title.style.textShadow = "none";
+            }
+        });
+
+        // === SPACESHIP ARRAY (unchanged) ===
+        const shipData = [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0],
+            [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+            [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+            [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+            [0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0],
+            [0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
+            [0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        ];
+
+        let ships = [
+            { angle: 0, radius: 600, speed: 1 },
+            { angle: Math.PI, radius: 600, speed: 1 }
+        ];
+
+        let particles = [];
+        const PARTICLE_INTERVAL = 0.01;
+
+        function spawnParticle(x, y, hue) {
+            particles.push({ x, y, alpha: 1, hue, size: 2, lifetime: 0.5 });
+        }
+
+        function updateParticles(deltaTime) {
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.alpha -= deltaTime / p.lifetime;
+                p.y -= deltaTime * 10;
+                if (p.alpha <= 0) particles.splice(i, 1);
+                else {
+                    ctx.fillStyle = `hsla(${p.hue},100%,50%,${p.alpha})`;
+                    ctx.fillRect(p.x, p.y, p.size, p.size);
+                }
+            }
+        }
+
+        let particleTimer = 0;
+
+        function drawShipOrbit(cx, cy, shipArr, hue, angle, radius, deltaTime) {
+            const size = 10;
+            const offsetX = -Math.floor(shipArr[0].length / 2);
+            const offsetY = -Math.floor(shipArr.length / 2);
+
+            const sx = cx + Math.cos(angle) * radius;
+            const sy = cy + Math.sin(angle) * radius;
+
+            ctx.save();
+            ctx.translate(sx, sy);
+            ctx.rotate(angle + Math.PI / 1);
+
+            for (let y = 0; y < shipArr.length; y++) {
+                for (let x = 0; x < shipArr[y].length; x++) {
+                    const px = (x + offsetX) * size;
+                    const py = (y + offsetY) * size;
+
+                    if (shipArr[y][x] === 1) {
+                        ctx.fillStyle = `hsla(${hue}, 100%, 50%, 1)`;
+                        ctx.fillRect(px, py, size, size);
+                    } else if (shipArr[y][x] === 2) {
+                        particleTimer += deltaTime;
+                        if (particleTimer >= PARTICLE_INTERVAL) {
+                            const cos = Math.cos(angle + Math.PI / 1);
+                            const sin = Math.sin(angle + Math.PI / 1);
+                            const globalX = sx + px * cos - py * sin;
+                            const globalY = sy + px * sin + py * cos;
+                            spawnParticle(globalX, globalY, hue);
+                            particleTimer = 0;
+                        }
+                    }
+                }
+            }
+
+            ctx.restore();
+        }
+
+        function animate(now = performance.now()) {
+            const deltaTime = (now - lastTime) / 1000;
+            lastTime = now;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (isEnabled) {
+                globalHue = (globalHue + 1) % 360;
+
+                const cx = canvas.width / 2;
+                const cy = canvas.height / 2;
+
+                title.style.color = `hsl(${globalHue}, 100%, 50%)`;
+                title.style.textShadow = `
+                    0 0 20px hsl(${globalHue}, 100%, 60%),
+                    0 0 40px hsl(${globalHue}, 100%, 60%),
+                    0 0 80px hsl(${globalHue}, 100%, 70%)
+                `;
+
+                drawCenterGlow(cx, cy, globalHue);
+
+                rings.forEach(ring => {
+                    ring.rotation += (ring.clockwise ? 1 : -1) * ROTATION_SPEED * deltaTime;
+                    ctx.save();
+                    ctx.translate(cx, cy);
+                    ctx.rotate(ring.rotation);
+
+                    for (let w = 0; w < ringWidth; w++) {
+                        const radiusOffset = RADIUS - 1 - w;
+                        const points = getCirclePoints(radiusOffset);
+                        points.forEach((p, idx) => {
+                            plot(p[0] * ring.size, p[1] * ring.size, ring.size,
+                                globalHue, ring.alphaMap[idx % ring.alphaMap.length]);
+                        });
+                    }
+                    ctx.restore();
+                    ring.size += 0.4;
+                });
+
+                rings = rings.filter(ring => (ring.size + ringWidth) * RADIUS <= MAX_DISTANCE);
+
+                ships.forEach(ship => {
+                    ship.angle += ship.speed * deltaTime;
+                    drawShipOrbit(cx, cy, shipData, globalHue, ship.angle, ship.radius, deltaTime);
+                });
+
+                updateParticles(deltaTime);
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+
+</html>
